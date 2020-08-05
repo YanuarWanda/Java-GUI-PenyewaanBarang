@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  */
 public class koneksi {
     private static final String driver = "com.mysql.jdbc.Driver";
-    private static final String url = "jdbc:mysql://localhost/db[nim]PenyewaanBarang";
+    private static final String url = "jdbc:mysql://localhost/db10118228PenyewaanBarang";
     private static final String user = "root";
     private static final String pass = "";
     
