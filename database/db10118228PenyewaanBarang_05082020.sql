@@ -48,7 +48,7 @@ CREATE TABLE sewa (
     id_cabang INT(11) UNSIGNED NOT NULL,
     tanggal_peminjaman DATE NOT NULL,
     peminjaman_sampai DATE NOT NULL,
-    tanggal_pengembalian DATE NOT NULL,
+    tanggal_pengembalian DATE,
     total FLOAT,
     denda FLOAT,
     FOREIGN KEY (no_ktp) REFERENCES penyewa(no_ktp),
