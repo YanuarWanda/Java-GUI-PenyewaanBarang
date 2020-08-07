@@ -1,9 +1,10 @@
 package view;
 
-/**
- *
- * @author Yanuar Wanda Putra
- */
+import java.awt.Dimension;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
+import sewa.indexSewa;
+
 public class frameUtama extends javax.swing.JFrame {
 
     /**
@@ -11,6 +12,24 @@ public class frameUtama extends javax.swing.JFrame {
      */
     public frameUtama() {
         initComponents();
+    }
+    
+    private void tampil(JDesktopPane panelUtama, JInternalFrame frame) {
+        panelUtama.removeAll();
+        panelUtama.repaint();
+        
+        // sizescreen
+        Dimension layarUtama = this.getSize();
+        Dimension layarMahasiswa = frame.getSize();
+        
+        // simpan posisi frame di tengah layar utama
+        frame.setLocation(
+            layarUtama.width / 2 - layarMahasiswa.width / 2,
+            layarUtama.height / 2 - layarMahasiswa.height / 2
+        );
+        
+        panelUtama.add(frame);
+        frame.setVisible(true);
     }
 
     /**
@@ -91,6 +110,11 @@ public class frameUtama extends javax.swing.JFrame {
         menuKelolaSewa.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuKelolaSewa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_shopping_basket_black_18dp.png"))); // NOI18N
         menuKelolaSewa.setText("Kelola Sewa");
+        menuKelolaSewa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuKelolaSewaActionPerformed(evt);
+            }
+        });
         menuData.add(menuKelolaSewa);
 
         menuKelolaUser.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -122,6 +146,11 @@ public class frameUtama extends javax.swing.JFrame {
     private void menuKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKeluarActionPerformed
         System.exit(0);
     }//GEN-LAST:event_menuKeluarActionPerformed
+
+    private void menuKelolaSewaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKelolaSewaActionPerformed
+        indexSewa fIndexSewa = new indexSewa();
+        tampil(panelUtama, fIndexSewa);
+    }//GEN-LAST:event_menuKelolaSewaActionPerformed
 
     /**
      * @param args the command line arguments
