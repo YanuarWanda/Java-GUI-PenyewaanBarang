@@ -1,12 +1,6 @@
 package sewa;
 
 import helper.koneksi;
-import penyewa.penyewaController;
-import penyewa.penyewa;
-import user.userController;
-import user.user;
-import cabang.cabangController;
-import cabang.cabang;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,10 +9,6 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class sewaController {
-    penyewaController pc = new penyewaController();
-    userController uc = new userController();
-    cabangController cc = new cabangController();
-    
     public ArrayList<sewa> tampilSemuaSewa() {
         ArrayList<sewa> list = new ArrayList<>();
         Connection conn = koneksi.getConnection();
