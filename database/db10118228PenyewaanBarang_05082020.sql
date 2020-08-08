@@ -64,6 +64,27 @@ CREATE TABLE detail_sewa (
     denda FLOAT,
     keterangan_denda VARCHAR(50),
     PRIMARY KEY (id_sewa, id_barang),
-    FOREIGN KEY (id_sewa) REFERENCES sewa(id_sewa),
+    FOREIGN KEY (id_sewa) REFERENCES sewa(id_sewa) ON DELETE CASCADE,
     FOREIGN KEY (id_barang) REFERENCES barang(id_barang)
 );
+
+INSERT INTO cabang VALUES
+(1, "Cabang 1", "Jl. Cabang 1.", "087825418390");
+
+INSERT INTO penyewa VALUES
+("1234567890123456", "Penyewa 1", "Jl. Penyewa 1.", "087722394860");
+
+INSERT INTO user VALUES
+(1, 1, "User 1", "user1", "user123", "Admin", "Jl. User 1.", "08217050905", "2001-01-18");
+
+INSERT INTO barang VALUES
+(1, 1, "Barang 1", "Merk 1", 1984, "Jenis 1", 20, 35000),
+(2, 1, "Barang 2", "Merk 2", 1999, "Jenis 2", 3, 75000),
+(3, 1, "Barang 3", "Merk 3", 2012, "Jenis 3", 80, 7500);
+
+INSERT INTO sewa VALUES
+(1, "1234567890123456", 1, 1, "2020-08-07", "2020-08-09", NULL, 290000, NULL);
+
+INSERT INTO detail_sewa VALUES
+(1, 1, 2, 140000, NULL, NULL),
+(1, 2, 1, 150000, NULL, NULL);

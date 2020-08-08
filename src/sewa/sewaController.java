@@ -67,4 +67,17 @@ public class sewaController {
             koneksi.closeConnection(conn);
         }
     }
+    public void hapusSewa(int idSewa) {
+        Connection conn = koneksi.getConnection();
+        
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "DELETE FROM sewa WHERE id_sewa = " + idSewa + ";";
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) { 
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        } finally {
+            koneksi.closeConnection(conn);
+        }
+    }
 }

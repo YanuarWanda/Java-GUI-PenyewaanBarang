@@ -1,5 +1,7 @@
 package sewa;
 
+import javax.swing.JOptionPane;
+
 public class indexSewa extends javax.swing.JInternalFrame {
     sewaController sc = new sewaController();
     sewaTabelModel tabelModel = new sewaTabelModel();
@@ -99,6 +101,11 @@ public class indexSewa extends javax.swing.JInternalFrame {
         btnHapus.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnHapus.setMaximumSize(new java.awt.Dimension(100, 0));
         btnHapus.setMinimumSize(new java.awt.Dimension(75, 23));
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
 
         btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_refresh_black_18dp.png"))); // NOI18N
         btnRefresh.setText("Refresh");
@@ -168,6 +175,20 @@ public class indexSewa extends javax.swing.JInternalFrame {
         formTambahSewa fTambahSewa = new formTambahSewa(null, true);
         fTambahSewa.setVisible(true);
     }//GEN-LAST:event_btnTambahActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        try {
+            Object[] pilihan = {"Ya", "Tidak"};
+            int jawaban = JOptionPane.showOptionDialog(null, "Anda yakin akan menghapus data sewa ini?", "Peringatan", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, pilihan, pilihan[0]);
+
+            if (jawaban == 0) {
+                sc.hapusSewa((int) tSewa.getValueAt(tSewa.getSelectedRow(), 0));
+                refresh();
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "Pilih data terlebih dahulu");
+        }
+    }//GEN-LAST:event_btnHapusActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
