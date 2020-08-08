@@ -1,8 +1,6 @@
 package view;
 
-import java.awt.Dimension;
-import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
+import helper.bantuan;
 import sewa.indexSewa;
 
 public class frameUtama extends javax.swing.JFrame {
@@ -12,24 +10,6 @@ public class frameUtama extends javax.swing.JFrame {
      */
     public frameUtama() {
         initComponents();
-    }
-    
-    private void tampil(JDesktopPane panelUtama, JInternalFrame frame) {
-        panelUtama.removeAll();
-        panelUtama.repaint();
-        
-        // sizescreen
-        Dimension layarUtama = this.getSize();
-        Dimension layarMahasiswa = frame.getSize();
-        
-        // simpan posisi frame di tengah layar utama
-        frame.setLocation(
-            layarUtama.width / 2 - layarMahasiswa.width / 2,
-            layarUtama.height / 2 - layarMahasiswa.height / 2
-        );
-        
-        panelUtama.add(frame);
-        frame.setVisible(true);
     }
 
     /**
@@ -149,7 +129,7 @@ public class frameUtama extends javax.swing.JFrame {
 
     private void menuKelolaSewaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKelolaSewaActionPerformed
         indexSewa fIndexSewa = new indexSewa();
-        tampil(panelUtama, fIndexSewa);
+        bantuan.tampil(panelUtama, fIndexSewa, this.getSize());
     }//GEN-LAST:event_menuKelolaSewaActionPerformed
 
     /**

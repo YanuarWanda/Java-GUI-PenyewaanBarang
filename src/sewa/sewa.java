@@ -15,7 +15,7 @@ public class sewa {
     private float total;
     private float denda;
 
-    public sewa(int id, String noKTPPenyewa, int idPegawai, int idCabang, Date tanggalPeminjaman, Date peminjamanSampai, Date tanggalPengembalian) {
+    public sewa(int id, String noKTPPenyewa, int idPegawai, int idCabang, Date tanggalPeminjaman, Date peminjamanSampai, Date tanggalPengembalian, float total) {
         this.id = id;
         this.noKTPPenyewa = noKTPPenyewa;
         this.idPegawai = idPegawai;
@@ -23,6 +23,7 @@ public class sewa {
         this.tanggalPeminjaman = tanggalPeminjaman;
         this.peminjamanSampai = peminjamanSampai;
         this.tanggalPengembalian = tanggalPengembalian;
+        this.total = total;
     }
 
     public int getId() {

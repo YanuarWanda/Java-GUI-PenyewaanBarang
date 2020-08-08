@@ -15,4 +15,9 @@ public class penyewa extends biodata {
     public void setNoKTP(String noKTP) {
         this.noKTP = noKTP;
     }
+
+    @Override
+    public String toString() {
+        return this.nama;
+    }
 }

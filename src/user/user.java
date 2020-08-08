@@ -1,7 +1,6 @@
 package user;
 
 import java.sql.Date;
-
 import penyewa.biodata;
 
 public class user extends biodata {

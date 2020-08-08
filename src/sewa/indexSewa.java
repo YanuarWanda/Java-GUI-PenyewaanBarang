@@ -21,6 +21,12 @@ public class indexSewa extends javax.swing.JInternalFrame {
         tSewa.getColumnModel().getColumn(0).setMaxWidth(0);
         tSewa.getColumnModel().getColumn(1).setMaxWidth(30);
     }
+    
+    public void refresh() {
+        tabelModel.setData(sc.tampilSemuaSewa());
+        tabelModel.fireTableDataChanged();
+        tSewa.changeSelection(0, 0, false, false);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,6 +46,10 @@ public class indexSewa extends javax.swing.JInternalFrame {
         btnRefresh = new javax.swing.JButton();
         btnCari = new javax.swing.JButton();
 
+        setClosable(true);
+        setTitle("Pengolahan Data Sewa");
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("PENGOLAHAN DATA SEWA");
 
         tSewa.setModel(new javax.swing.table.DefaultTableModel(
@@ -72,6 +82,11 @@ public class indexSewa extends javax.swing.JInternalFrame {
         btnTambah.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnTambah.setMaximumSize(new java.awt.Dimension(100, 0));
         btnTambah.setMinimumSize(new java.awt.Dimension(75, 23));
+        btnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTambahActionPerformed(evt);
+            }
+        });
 
         btnUbah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_edit_black_18dp.png"))); // NOI18N
         btnUbah.setText("Ubah");
@@ -106,10 +121,11 @@ public class indexSewa extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 674, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -117,11 +133,7 @@ public class indexSewa extends javax.swing.JInternalFrame {
                             .addComponent(btnHapus, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnUbah, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnTambah, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(230, 230, 230)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -142,17 +154,20 @@ public class indexSewa extends javax.swing.JInternalFrame {
                         .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        tabelModel.setData(sc.tampilSemuaSewa());
-        tabelModel.fireTableDataChanged();
-        tSewa.changeSelection(0, 0, false, false);
+        refresh();
     }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+        formTambahSewa fTambahSewa = new formTambahSewa(null, true);
+        fTambahSewa.setVisible(true);
+    }//GEN-LAST:event_btnTambahActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
