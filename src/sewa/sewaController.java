@@ -87,12 +87,12 @@ public class sewaController {
         
         try {
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM sewa JOIN penyewa USING(no_ktp) WHERE nama = '%" + namaPenyewa + "%';";
+            String sql = "SELECT * FROM sewa JOIN penyewa USING(no_ktp) WHERE nama LIKE '%" + namaPenyewa + "%';";
             ResultSet rs = stmt.executeQuery(sql);
             
             while (rs.next()) {
                 list.add(new sewa(
-                        rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4),
+                        rs.getInt(2), rs.getString(1), rs.getInt(3), rs.getInt(4),
                         rs.getDate(5), rs.getDate(6), rs.getDate(7), rs.getFloat(8),
                         rs.getFloat(9)
                 ));
