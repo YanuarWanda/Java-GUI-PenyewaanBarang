@@ -13,8 +13,6 @@ public class indexSewa extends javax.swing.JInternalFrame {
     public indexSewa() {
         initComponents();
         tampilSewa();
-        
-        System.out.println(this.getContentPane());
     }
     
     public void tampilSewa() {
@@ -180,7 +178,7 @@ public class indexSewa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
-        formTambahSewa fTambahSewa = new formTambahSewa((Frame) this.getContentPane().getParent().getParent().getParent(), true);
+        formTambahSewa fTambahSewa = new formTambahSewa(null, true);
         fTambahSewa.setVisible(true);
     }//GEN-LAST:event_btnTambahActionPerformed
 
@@ -199,7 +197,7 @@ public class indexSewa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
-        formCariSewa fCariSewa = new formCariSewa((Frame) this.getContentPane().getParent().getParent().getParent(), true);
+        formCariSewa fCariSewa = new formCariSewa(null, true);
         fCariSewa.setVisible(true);
         
     }//GEN-LAST:event_btnCariActionPerformed
