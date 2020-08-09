@@ -19,7 +19,7 @@ public class frameUtama extends javax.swing.JFrame {
         this.setExtendedState(MAXIMIZED_BOTH);
         JOptionPane.showMessageDialog(this, "id_user = " + Integer.toString(id_user));
         JOptionPane.showMessageDialog(this, "id_cabang = " + Integer.toString(id_cabang));
-        JOptionPane.showMessageDialog(this, "status = " + status);
+//        JOptionPane.showMessageDialog(this, "status = " + status);
     }
 
     /**
