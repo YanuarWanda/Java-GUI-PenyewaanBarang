@@ -23,7 +23,8 @@ public class sewaController {
             while(rs.next()) {
                 list.add(new sewa(
                     rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), 
-                    rs.getDate(5), rs.getDate(6), rs.getDate(7), 0)
+                    rs.getDate(5), rs.getDate(6), rs.getDate(7), rs.getFloat(8), 
+                    rs.getFloat(9))
                 );
             }
             rs.close();
@@ -78,6 +79,29 @@ public class sewaController {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         } finally {
             koneksi.closeConnection(conn);
+        }
+    }
+    public ArrayList<sewa> cariSewa(String namaPenyewa) {
+        ArrayList<sewa> list = new ArrayList<>();
+        Connection conn = koneksi.getConnection();
+        
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT * FROM sewa JOIN penyewa USING(no_ktp) WHERE nama = '%" + namaPenyewa + "%';";
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {
+                list.add(new sewa(
+                        rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4),
+                        rs.getDate(5), rs.getDate(6), rs.getDate(7), rs.getFloat(8),
+                        rs.getFloat(9)
+                ));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        } finally {
+            koneksi.closeConnection(conn);
+            return list;
         }
     }
 }

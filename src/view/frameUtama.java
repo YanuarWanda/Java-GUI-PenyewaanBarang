@@ -2,14 +2,20 @@ package view;
 
 import helper.bantuan;
 import sewa.indexSewa;
+import kelola_user.classKelolaUser;
+import kelola_user.kelolaUserUtama;
 
 public class frameUtama extends javax.swing.JFrame {
-
-    /**
-     * Creates new form frameUtama
-     */
-    public frameUtama() {
+    int id_user = 0;
+    int id_cabang = 0;
+    String status = "";
+    
+    public frameUtama(int id_user, int id_cabang, String status) {
         initComponents();
+        this.id_user = id_user;
+        this.id_cabang = id_cabang;
+        this.status = status;
+        this.setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**
@@ -100,6 +106,11 @@ public class frameUtama extends javax.swing.JFrame {
         menuKelolaUser.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuKelolaUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_account_circle_black_18dp.png"))); // NOI18N
         menuKelolaUser.setText("Kelola User");
+        menuKelolaUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuKelolaUserActionPerformed(evt);
+            }
+        });
         menuData.add(menuKelolaUser);
 
         menuBar.add(menuData);
@@ -132,40 +143,14 @@ public class frameUtama extends javax.swing.JFrame {
         bantuan.tampil(panelUtama, fIndexSewa, this.getSize());
     }//GEN-LAST:event_menuKelolaSewaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frameUtama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frameUtama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frameUtama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frameUtama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void menuKelolaUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKelolaUserActionPerformed
+        boolean buka = classKelolaUser.get_tampil();
+        if(!buka){
+            kelolaUserUtama KU = new kelolaUserUtama();
+            bantuan.tampil(panelUtama, KU, this.getSize());
+            classKelolaUser.set_tampil(true);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frameUtama().setVisible(true);
-            }
-        });
-    }
+    }//GEN-LAST:event_menuKelolaUserActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu menu;

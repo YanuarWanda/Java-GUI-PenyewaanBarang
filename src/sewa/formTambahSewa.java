@@ -15,9 +15,6 @@ public class formTambahSewa extends javax.swing.JDialog {
     barangController bc = new barangController();
     sewaController sc = new sewaController();
     
-    /**
-     * Creates new form formTambahSewa
-     */
     public formTambahSewa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -464,7 +461,7 @@ public class formTambahSewa extends javax.swing.JDialog {
             sewa s = new sewa(0, txtIdPenyewa.getText(), 1, 1, 
                     java.sql.Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(dpDari.getDate())), 
                     java.sql.Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(dpSampai.getDate())), 
-                    null, Float.valueOf(txtTotal.getText()));
+                    null, Float.valueOf(txtTotal.getText()), 0.0f);
             ArrayList<detailSewa> ds = new ArrayList<>();
             if (cbBarang1.getSelectedItem() != "Belum pilih") {
                 ds.add(new detailSewa(0, Integer.valueOf(txtIdBarang1.getText()), (int) spinnerJumlahBarang1.getValue(), 0.0f, 0.0f, null));
@@ -487,48 +484,6 @@ public class formTambahSewa extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_btnSimpanActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(formTambahSewa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(formTambahSewa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(formTambahSewa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(formTambahSewa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                formTambahSewa dialog = new formTambahSewa(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRefresh;

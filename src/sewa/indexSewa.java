@@ -1,5 +1,6 @@
 package sewa;
 
+import java.awt.Frame;
 import javax.swing.JOptionPane;
 
 public class indexSewa extends javax.swing.JInternalFrame {
@@ -12,6 +13,8 @@ public class indexSewa extends javax.swing.JInternalFrame {
     public indexSewa() {
         initComponents();
         tampilSewa();
+        
+        System.out.println(this.getContentPane());
     }
     
     public void tampilSewa() {
@@ -123,6 +126,11 @@ public class indexSewa extends javax.swing.JInternalFrame {
         btnCari.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnCari.setMaximumSize(new java.awt.Dimension(100, 0));
         btnCari.setMinimumSize(new java.awt.Dimension(75, 23));
+        btnCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCariActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -172,7 +180,7 @@ public class indexSewa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
-        formTambahSewa fTambahSewa = new formTambahSewa(null, true);
+        formTambahSewa fTambahSewa = new formTambahSewa((Frame) this.getContentPane().getParent().getParent().getParent(), true);
         fTambahSewa.setVisible(true);
     }//GEN-LAST:event_btnTambahActionPerformed
 
@@ -189,6 +197,12 @@ public class indexSewa extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Pilih data terlebih dahulu");
         }
     }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+        formCariSewa fCariSewa = new formCariSewa((Frame) this.getContentPane().getParent().getParent().getParent(), true);
+        fCariSewa.setVisible(true);
+        
+    }//GEN-LAST:event_btnCariActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
