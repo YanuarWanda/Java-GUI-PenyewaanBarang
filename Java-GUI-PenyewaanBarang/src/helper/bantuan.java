@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 public class bantuan {
     public static void tampil(JDesktopPane panelUtama, JInternalFrame frame, Dimension layarUtama) {
-        panelUtama.removeAll();
+//        panelUtama.removeAll();
         panelUtama.repaint();
         
         // sizescreen

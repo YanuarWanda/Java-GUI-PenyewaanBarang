@@ -2,6 +2,8 @@ package view;
 
 import helper.bantuan;
 import javax.swing.JOptionPane;
+import kelola_user.classKelolaUser;
+import kelola_user.kelolaUserUtama;
 import sewa.indexSewa;
 
 public class frameUtama extends javax.swing.JFrame {
@@ -17,9 +19,6 @@ public class frameUtama extends javax.swing.JFrame {
         this.id_cabang = id_cabang;
         this.status = status;
         this.setExtendedState(MAXIMIZED_BOTH);
-        JOptionPane.showMessageDialog(this, "id_user = " + Integer.toString(id_user));
-        JOptionPane.showMessageDialog(this, "id_cabang = " + Integer.toString(id_cabang));
-//        JOptionPane.showMessageDialog(this, "status = " + status);
     }
 
     /**
@@ -110,6 +109,11 @@ public class frameUtama extends javax.swing.JFrame {
         menuKelolaUser.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuKelolaUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_account_circle_black_18dp.png"))); // NOI18N
         menuKelolaUser.setText("Kelola User");
+        menuKelolaUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuKelolaUserActionPerformed(evt);
+            }
+        });
         menuData.add(menuKelolaUser);
 
         menuBar.add(menuData);
@@ -141,6 +145,16 @@ public class frameUtama extends javax.swing.JFrame {
         indexSewa fIndexSewa = new indexSewa();
         bantuan.tampil(panelUtama, fIndexSewa, this.getSize());
     }//GEN-LAST:event_menuKelolaSewaActionPerformed
+
+    private void menuKelolaUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKelolaUserActionPerformed
+        // TODO add your handling code here:
+        boolean buka = classKelolaUser.get_tampil();
+        if(!buka){
+            kelolaUserUtama KU = new kelolaUserUtama();
+            bantuan.tampil(panelUtama, KU, this.getSize());
+            classKelolaUser.set_tampil(true);
+        }
+    }//GEN-LAST:event_menuKelolaUserActionPerformed
 
  
 
