@@ -1,18 +1,21 @@
 package sewa;
 
-import java.awt.Frame;
-import java.util.ArrayList;
+import barang.barang;
+import barang.barangController;
 import javax.swing.JOptionPane;
 
 public class indexSewa extends javax.swing.JInternalFrame {
+    int id_user = 0;
+    int id_cabang = 0;
+    
     sewaController sc = new sewaController();
+    barangController bc = new barangController();
     sewaTabelModel tabelModel = new sewaTabelModel();
     
-    /**
-     * Creates new form indexSewa
-     */
-    public indexSewa() {
+    public indexSewa(int id_user, int id_cabang) {
         initComponents();
+        this.id_user = id_user;
+        this.id_cabang = id_cabang;
         tampilSewa();
     }
     
@@ -41,7 +44,6 @@ public class indexSewa extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tSewa = new javax.swing.JTable();
         btnTambah = new javax.swing.JButton();
@@ -53,9 +55,6 @@ public class indexSewa extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Pengolahan Data Sewa");
-
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("PENGOLAHAN DATA SEWA");
 
         tSewa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -98,6 +97,11 @@ public class indexSewa extends javax.swing.JInternalFrame {
         btnUbah.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnUbah.setMaximumSize(new java.awt.Dimension(100, 0));
         btnUbah.setMinimumSize(new java.awt.Dimension(75, 23));
+        btnUbah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUbahActionPerformed(evt);
+            }
+        });
 
         btnHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_delete_black_18dp.png"))); // NOI18N
         btnHapus.setText("Hapus");
@@ -139,7 +143,6 @@ public class indexSewa extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 674, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -159,8 +162,6 @@ public class indexSewa extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCari, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -186,7 +187,7 @@ public class indexSewa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
-        formTambahSewa fTambahSewa = new formTambahSewa(null, true);
+        formTambahSewa fTambahSewa = new formTambahSewa(null, true, this.id_user, this.id_cabang, this);
         fTambahSewa.setVisible(true);
     }//GEN-LAST:event_btnTambahActionPerformed
 
@@ -196,10 +197,17 @@ public class indexSewa extends javax.swing.JInternalFrame {
             int jawaban = JOptionPane.showOptionDialog(null, "Anda yakin akan menghapus data sewa ini?", "Peringatan", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, pilihan, pilihan[0]);
 
             if (jawaban == 0) {
-                sc.hapusSewa((int) tSewa.getValueAt(tSewa.getSelectedRow(), 0));
+                sewa s = sc.pilihSewa((int) tSewa.getValueAt(tSewa.getSelectedRow(), 0));
+                
+                for(detailSewa ds: s.getSemuaDetailSewa()) {
+                    bc.updateStok(ds.getIdBarang(), ds.getBarang().getStok() + ds.getJumlah());
+                }
+                
+                sc.hapusSewa(s.getId());
+                
                 refresh();
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "Pilih data terlebih dahulu");
         }
     }//GEN-LAST:event_btnHapusActionPerformed
@@ -210,6 +218,14 @@ public class indexSewa extends javax.swing.JInternalFrame {
         tSewa.changeSelection(0, 0, false, false);
     }//GEN-LAST:event_btnCariActionPerformed
 
+    private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUbahActionPerformed
+        try {
+            formUbahSewa fUbahSewa = new formUbahSewa(null, true, sc.pilihSewa((int) tSewa.getValueAt(tSewa.getSelectedRow(), 0)), this);
+            fUbahSewa.setVisible(true);
+        } catch (IndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "Pilih data terlebih dahulu");
+        }
+    }//GEN-LAST:event_btnUbahActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCari;
@@ -217,7 +233,6 @@ public class indexSewa extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnTambah;
     private javax.swing.JButton btnUbah;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tSewa;
     private javax.swing.JTextField txtCari;

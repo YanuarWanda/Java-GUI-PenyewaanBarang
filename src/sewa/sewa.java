@@ -1,8 +1,11 @@
 package sewa;
 
+import barang.barang;
+import barang.barangController;
 import penyewa.penyewaController;
 import penyewa.penyewa;
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class sewa {
     private int id;
@@ -104,5 +107,15 @@ public class sewa {
     public penyewa getPenyewa() {
         penyewaController pc = new penyewaController();
         return pc.getPenyewa(this.noKTPPenyewa);
+    }
+    
+    public ArrayList<barang> getSemuaBarang() {
+        barangController bc = new barangController();
+        return bc.getBarangBySewa(this.id);
+    }
+    
+    public ArrayList<detailSewa> getSemuaDetailSewa() {
+        sewaController sc = new sewaController();
+        return sc.getDetailSewa(this.id);
     }
 }

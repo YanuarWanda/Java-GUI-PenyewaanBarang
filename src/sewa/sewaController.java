@@ -35,6 +35,32 @@ public class sewaController {
             return list;
         }
     }
+    public ArrayList<sewa> tampilSemuaSewa(String status, int idCabang) {
+        ArrayList<sewa> list = new ArrayList<>();
+        Connection conn = koneksi.getConnection();
+        
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT * FROM sewa";
+            if (!status.equals("admin")) {
+                sql = sql + " WHERE id_cabang = " + idCabang + ";";
+            }
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()) {
+                list.add(new sewa(
+                    rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), 
+                    rs.getDate(5), rs.getDate(6), rs.getDate(7), rs.getFloat(8), 
+                    rs.getFloat(9))
+                );
+            }
+            rs.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        } finally {
+            koneksi.closeConnection(conn);
+            return list;
+        }
+    }
     public void tambahSewa(sewa sewa, ArrayList<detailSewa> barangSewaan, long lamaSewa) {
         Connection conn = koneksi.getConnection();
         
@@ -102,6 +128,93 @@ public class sewaController {
         } finally {
             koneksi.closeConnection(conn);
             return list;
+        }
+    }
+    public sewa pilihSewa(int idSewa) {
+        sewa s = null;
+        Connection conn = koneksi.getConnection();
+        
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT * FROM sewa JOIN penyewa USING(no_ktp) WHERE id_sewa = " + idSewa + ";";
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                s = new sewa(rs.getInt(2), rs.getString(1), rs.getInt(3), rs.getInt(4), rs.getDate(5), rs.getDate(6), rs.getDate(7), rs.getFloat(8), rs.getFloat(9));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        } finally {
+            koneksi.closeConnection(conn);
+            return s;
+        }
+    }
+    public void updateSewa(sewa sewa, ArrayList<detailSewa> barangSewaan, long lamaSewa) {
+        Connection conn = koneksi.getConnection();
+        
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "UPDATE sewa SET no_ktp = '" + sewa.getNoKTPPenyewa() + "', tanggal_peminjaman = '" + sewa.getTanggalPeminjaman() + "', peminjaman_sampai = '" + sewa.getPeminjamanSampai() + "', total = " + sewa.getTotal() + ";";
+            stmt.executeUpdate(sql);
+            
+            // Hapus detail sewa
+            for (detailSewa ds: getDetailSewa(sewa.getId())) {
+                sql = "DELETE FROM detail_sewa WHERE id_sewa = " + ds.getIdSewa() + " AND id_barang = " + ds.getIdBarang() + ";";
+                stmt.executeUpdate(sql);
+                bc.updateStok(ds.getIdBarang(), ds.getBarang().getStok() + ds.getJumlah());
+            }
+            
+            for (detailSewa ds: barangSewaan) {
+                sql = "INSERT INTO detail_sewa (id_sewa, id_barang, jumlah, "
+                    + "total) VALUES (" + sewa.getId() + ", " + 
+                    ds.getIdBarang()+ ", " + ds.getJumlah() + ", " + 
+                    ds.hitungTotal(lamaSewa) + ");";
+                stmt.executeUpdate(sql);
+                bc.updateStok(ds.getIdBarang(), ds.getBarang().getStok() - ds.getJumlah());
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        } finally {
+            koneksi.closeConnection(conn);
+        }
+    }
+    public ArrayList<detailSewa> getDetailSewa(int idSewa) {
+        ArrayList<detailSewa> list = new ArrayList<>();
+        Connection conn = koneksi.getConnection();
+        
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT * FROM detail_sewa WHERE id_sewa = " + idSewa + ";";
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {
+                list.add(new detailSewa(
+                    rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getFloat(4), rs.getFloat(5), rs.getString(6)
+                ));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        } finally {
+            koneksi.closeConnection(conn);
+            return list;
+        }
+    }
+    public detailSewa pilihSatuDetailSewa(int idBarang, int idSewa) {
+        detailSewa ds = null;
+        Connection conn = koneksi.getConnection();
+        
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT * FROM detail_sewa WHERE id_barang = " + idBarang + " AND id_sewa = " + idSewa + ";";
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            if (rs.next()) {
+                ds = new detailSewa(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getFloat(4), rs.getFloat(5), rs.getString(6));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        } finally {
+            koneksi.closeConnection(conn);
+            return ds;
         }
     }
 }

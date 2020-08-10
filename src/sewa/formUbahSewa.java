@@ -1,34 +1,37 @@
 package sewa;
 
-import java.util.ArrayList;
-import penyewa.penyewaController;
 import penyewa.penyewa;
-import barang.barangController;
+import penyewa.penyewaController;
 import barang.barang;
+import barang.barangController;
 import helper.bantuan;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
 
-public class formTambahSewa extends javax.swing.JDialog {
-    int id_user = 0;
-    int id_cabang = 0;
+public class formUbahSewa extends javax.swing.JDialog {
+    sewa s = null;
     indexSewa indexFrame = null;
     
-    penyewaController pc = new penyewaController();
     barangController bc = new barangController();
+    penyewaController pc = new penyewaController();
     sewaController sc = new sewaController();
     
-    public formTambahSewa(java.awt.Frame parent, boolean modal, int id_user, int id_cabang, indexSewa index) {
+    public formUbahSewa(java.awt.Frame parent, boolean modal, sewa s, indexSewa index) {
         super(parent, modal);
         initComponents();
-        this.id_user = id_user;
-        this.id_cabang = id_cabang;
+        this.s = s;
         this.indexFrame = index;
         
         // Isi combo-box
         fillPenyewa();
         fillBarang();
+        fillJumlahBarang();
+        fillSisanya();
     }
     
     public void fillPenyewa() {
@@ -38,11 +41,14 @@ public class formTambahSewa extends javax.swing.JDialog {
         
         for (penyewa p: daftarPenyewa) {
             cbPenyewa.addItem(p);
+            if (p.getNoKTP().equals(s.getPenyewa().getNoKTP())) {
+                cbPenyewa.setSelectedItem(p);
+            }
         }
     }
-    
     public void fillBarang() {
-        ArrayList<barang> daftarBarang = bc.tampilSemuaBarang(true, this.id_cabang);
+        ArrayList<barang> daftarBarang = bc.tampilSemuaBarang(false, indexFrame.id_cabang);
+        ArrayList<barang> barangSewaan = bc.getBarangBySewa(s.getId());
         
         cbBarang1.addItem("Belum pilih");
         cbBarang2.addItem("Belum pilih");
@@ -53,8 +59,47 @@ public class formTambahSewa extends javax.swing.JDialog {
             cbBarang2.addItem(b);
             cbBarang3.addItem(b);
         }
+        
+        for (barang bS: barangSewaan) {
+            if (cbBarang1.getSelectedItem() == "Belum pilih") {
+                checkSelectedBarang(daftarBarang, bS, cbBarang1);
+            } else if (cbBarang2.getSelectedItem() == "Belum pilih") {
+                checkSelectedBarang(daftarBarang, bS, cbBarang2);
+            } else if (cbBarang3.getSelectedItem() == "Belum pilih") {
+                checkSelectedBarang(daftarBarang, bS, cbBarang3);
+            }
+        }
     }
-    
+    public void checkSelectedBarang(ArrayList<barang> daftarBarang, barang barangSewaan, JComboBox cb) {
+        for (barang b: daftarBarang) {
+            if (barangSewaan.getId() == b.getId()) {
+                cb.setSelectedItem(b);
+                return;
+            }
+        }
+    }
+    public void fillJumlahBarang() {
+        checkJumlahBarang(cbBarang1, spinnerJumlahBarang1);
+        checkJumlahBarang(cbBarang2, spinnerJumlahBarang2);
+        checkJumlahBarang(cbBarang3, spinnerJumlahBarang3);
+    }
+    public void checkJumlahBarang(JComboBox cbBarang, JSpinner spinner) {
+        if (cbBarang.getSelectedItem() == "Belum pilih") return ;
+        
+        ArrayList<detailSewa> list = sc.getDetailSewa(s.getId());
+        barang b = (barang) cbBarang.getSelectedItem();
+        
+        for (detailSewa ds: list) {
+            if (b.getId() == ds.getIdBarang()) {
+                spinner.setValue((Object) ds.getJumlah());
+            }
+        }
+    }
+    public void fillSisanya() {
+        dpDari.setDate(s.getTanggalPeminjaman());
+        dpSampai.setDate(s.getPeminjamanSampai());
+        txtTotal.setText(String.valueOf(s.getTotal()));
+    }
     public void updateTotal() {
         float totalBarang1 = 0, totalBarang2 = 0, totalBarang3 = 0;
         
@@ -96,7 +141,6 @@ public class formTambahSewa extends javax.swing.JDialog {
             txtTotal.setText("");
         }
     }
-    
     public void reset() {
         cbPenyewa.setSelectedIndex(0);
         cbBarang1.setSelectedIndex(0);
@@ -119,6 +163,38 @@ public class formTambahSewa extends javax.swing.JDialog {
         txtTotal.setText("");
     }
 
+    public void validasiJumlahBarang(JComboBox cbBarang, JSpinner spinner) {
+        if (cbBarang.getSelectedItem() == "Belum pilih") return;
+        
+        barang b = (barang) cbBarang.getSelectedItem();
+
+        int jumlahBarang = (int) spinner.getValue();
+        int jumlahBarangLama = b.getDetailSewaBySewa(s.getId()).getJumlah();
+        int stok = b.getStok();
+
+        if (jumlahBarang > 0) {
+            if (jumlahBarang <= stok + jumlahBarangLama) {
+                updateTotal();
+            } else {
+                spinner.setValue((Object) (stok + jumlahBarangLama));
+            }
+        } else {
+            spinner.setValue((Object) 1);
+        }
+    }
+    public void validasiBarang(JComboBox cbBarang, JSpinner spinner, JTextField txtIdBarang) {
+        if (cbBarang.getSelectedItem() != "Belum pilih") {
+            barang b = (barang)cbBarang.getSelectedItem();
+            txtIdBarang.setText(String.valueOf(b.getId()));
+            spinner.setEnabled(true);
+        } else {
+            spinner.setEnabled(false);
+        }
+        
+        updateTotal();
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -152,8 +228,7 @@ public class formTambahSewa extends javax.swing.JDialog {
         btnRefresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Form Tambah Sewa");
-        setResizable(false);
+        setTitle("Form Ubah Sewa");
 
         cbPenyewa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,7 +290,6 @@ public class formTambahSewa extends javax.swing.JDialog {
         dpDari.setDate(new Date());
         dpDari.setDateFormatString("yyyy-MM-dd");
         dpDari.setMaxSelectableDate(new java.util.Date(253370743282000L));
-        dpDari.setMinSelectableDate(new Date());
         dpDari.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 dpDariPropertyChange(evt);
@@ -353,47 +427,37 @@ public class formTambahSewa extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbPenyewaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPenyewaActionPerformed
-        if (cbPenyewa.getSelectedItem() != "Belum pilih") { 
+        if (cbPenyewa.getSelectedItem() != "Belum pilih") {
             penyewa p = (penyewa) cbPenyewa.getSelectedItem();
             txtIdPenyewa.setText(p.getNoKTP());
         }
     }//GEN-LAST:event_cbPenyewaActionPerformed
 
+    
+    
     private void cbBarang1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbBarang1ActionPerformed
-        if (cbBarang1.getSelectedItem() != "Belum pilih") { 
-            barang b = (barang) cbBarang1.getSelectedItem();
-            txtIdBarang1.setText(String.valueOf(b.getId()));
-            spinnerJumlahBarang1.setEnabled(true);
-        } else {
-            spinnerJumlahBarang1.setEnabled(false);
-        }
-        
-        updateTotal();
+        validasiBarang(cbBarang1, spinnerJumlahBarang1, txtIdBarang1);
     }//GEN-LAST:event_cbBarang1ActionPerformed
 
+    private void spinnerJumlahBarang1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerJumlahBarang1StateChanged
+        validasiJumlahBarang(cbBarang1, spinnerJumlahBarang1);
+    }//GEN-LAST:event_spinnerJumlahBarang1StateChanged
+
     private void cbBarang2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbBarang2ActionPerformed
-        if (cbBarang2.getSelectedItem() != "Belum pilih") { 
-            barang b = (barang) cbBarang2.getSelectedItem();
-            txtIdBarang2.setText(String.valueOf(b.getId()));
-            spinnerJumlahBarang2.setEnabled(true);
-        } else {
-            spinnerJumlahBarang2.setEnabled(false);
-        }
-        
-        updateTotal();
+        validasiBarang(cbBarang2, spinnerJumlahBarang2, txtIdBarang2);
     }//GEN-LAST:event_cbBarang2ActionPerformed
 
+    private void spinnerJumlahBarang2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerJumlahBarang2StateChanged
+        validasiJumlahBarang(cbBarang2, spinnerJumlahBarang2);
+    }//GEN-LAST:event_spinnerJumlahBarang2StateChanged
+
     private void cbBarang3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbBarang3ActionPerformed
-        if (cbBarang3.getSelectedItem() != "Belum pilih") { 
-            barang b = (barang) cbBarang3.getSelectedItem();
-            txtIdBarang3.setText(String.valueOf(b.getId()));
-            spinnerJumlahBarang3.setEnabled(true);
-        } else {
-            spinnerJumlahBarang3.setEnabled(false);
-        }
-        
-        updateTotal();
+        validasiBarang(cbBarang3, spinnerJumlahBarang3, txtIdBarang3);
     }//GEN-LAST:event_cbBarang3ActionPerformed
+
+    private void spinnerJumlahBarang3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerJumlahBarang3StateChanged
+        validasiJumlahBarang(cbBarang3, spinnerJumlahBarang3);
+    }//GEN-LAST:event_spinnerJumlahBarang3StateChanged
 
     private void dpDariPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dpDariPropertyChange
         if ("date".equals(evt.getPropertyName())) {
@@ -407,61 +471,6 @@ public class formTambahSewa extends javax.swing.JDialog {
             updateTotal();
         }
     }//GEN-LAST:event_dpSampaiPropertyChange
-
-    private void spinnerJumlahBarang1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerJumlahBarang1StateChanged
-        if (cbBarang1.getSelectedItem() != "Belum pilih") {
-            barang barang1 = (barang) cbBarang1.getSelectedItem();
-            int jumlahBarang1 = (int) spinnerJumlahBarang1.getValue();
-            
-            if (jumlahBarang1 > 0) {
-                if (jumlahBarang1 <= barang1.getStok()) {
-                    updateTotal();
-                } else {
-                    spinnerJumlahBarang1.setValue((Object) barang1.getStok());
-                }
-            } else {
-                spinnerJumlahBarang1.setValue((Object) 1);
-            }
-        }
-    }//GEN-LAST:event_spinnerJumlahBarang1StateChanged
-
-    private void spinnerJumlahBarang2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerJumlahBarang2StateChanged
-        if (cbBarang2.getSelectedItem() != "Belum pilih") {
-            barang barang2 = (barang) cbBarang2.getSelectedItem();
-            int jumlahBarang2 = (int) spinnerJumlahBarang2.getValue();
-            
-            if (jumlahBarang2 > 0) {
-                if (jumlahBarang2 <= barang2.getStok()) {
-                    updateTotal();
-                } else {
-                    spinnerJumlahBarang2.setValue((Object) barang2.getStok());
-                }
-            } else {
-                spinnerJumlahBarang2.setValue((Object) 1);
-            }
-        }
-    }//GEN-LAST:event_spinnerJumlahBarang2StateChanged
-
-    private void spinnerJumlahBarang3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerJumlahBarang3StateChanged
-        if (cbBarang3.getSelectedItem() != "Belum pilih") {
-            barang barang3 = (barang) cbBarang3.getSelectedItem();
-            int jumlahBarang3 = (int) spinnerJumlahBarang3.getValue();
-            
-            if (jumlahBarang3 > 0) {
-                if (jumlahBarang3 <= barang3.getStok()) {
-                    updateTotal();
-                } else {
-                    spinnerJumlahBarang3.setValue((Object) barang3.getStok());
-                }
-            } else {
-                spinnerJumlahBarang3.setValue((Object) 1);
-            }
-        }
-    }//GEN-LAST:event_spinnerJumlahBarang3StateChanged
-
-    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        reset();
-    }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         if (cbPenyewa.getSelectedItem() == "Belum pilih") {
@@ -484,38 +493,38 @@ public class formTambahSewa extends javax.swing.JDialog {
             return;
         }
         
-        sewa s = new sewa(0, txtIdPenyewa.getText(), this.id_user, this.id_cabang, 
-            java.sql.Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(dpDari.getDate())), 
-            java.sql.Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(dpSampai.getDate())), 
-            null, Float.valueOf(txtTotal.getText()), 0.0f);
+        sewa s = new sewa(
+            this.s.getId(), txtIdPenyewa.getText(), indexFrame.id_user, indexFrame.id_cabang,
+            java.sql.Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(dpDari.getDate())),
+            java.sql.Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(dpSampai.getDate())),
+            null, Float.valueOf(txtTotal.getText()), 0.0f
+        );
         ArrayList<detailSewa> ds = new ArrayList<>();
 
         if (cbBarang1.getSelectedItem() != "Belum pilih") {
             ds.add(new detailSewa(0, Integer.valueOf(txtIdBarang1.getText()), (int) spinnerJumlahBarang1.getValue(), 0.0f, 0.0f, null));
         }
-
         if (cbBarang2.getSelectedItem() != "Belum pilih") {
             ds.add(new detailSewa(0, Integer.valueOf(txtIdBarang2.getText()), (int) spinnerJumlahBarang2.getValue(), 0.0f, 0.0f, null));
         }
-
         if (cbBarang3.getSelectedItem() != "Belum pilih") {
             ds.add(new detailSewa(0, Integer.valueOf(txtIdBarang3.getText()), (int) spinnerJumlahBarang3.getValue(), 0.0f, 0.0f, null));
         }
 
-        if (ds.size() > 0) { 
-            sc.tambahSewa(s, ds, bantuan.bandingkanHari(dpDari.getDate(), dpSampai.getDate()));
+        if (ds.size() > 0) {
+            sc.updateSewa(s, ds, bantuan.bandingkanHari(dpDari.getDate(), dpSampai.getDate()));
 
             reset();
-            this.setVisible(false);
+            this.dispose();
             indexFrame.refresh();
-            
-            JOptionPane.showMessageDialog(null, "Data sewa berhasil ditambahkan.");
-        }
-        
-        if (cbPenyewa.getSelectedItem() != "Belum pilih" && dpSampai.getDate() != null) {
-            
+
+            JOptionPane.showMessageDialog(null, "Data sewa berhasil diubah.");
         }
     }//GEN-LAST:event_btnSimpanActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        reset();
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRefresh;

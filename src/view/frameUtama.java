@@ -16,6 +16,10 @@ public class frameUtama extends javax.swing.JFrame {
         this.id_cabang = id_cabang;
         this.status = status;
         this.setExtendedState(MAXIMIZED_BOTH);
+        
+        if (status != "admin") {
+            menuKelolaUser.setEnabled(false);
+        }
     }
 
     /**
@@ -91,6 +95,11 @@ public class frameUtama extends javax.swing.JFrame {
         menuKelolaPenyewa.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuKelolaPenyewa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_face_black_18dp.png"))); // NOI18N
         menuKelolaPenyewa.setText("Kelola Penyewa");
+        menuKelolaPenyewa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuKelolaPenyewaActionPerformed(evt);
+            }
+        });
         menuData.add(menuKelolaPenyewa);
 
         menuKelolaSewa.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -139,7 +148,7 @@ public class frameUtama extends javax.swing.JFrame {
     }//GEN-LAST:event_menuKeluarActionPerformed
 
     private void menuKelolaSewaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKelolaSewaActionPerformed
-        indexSewa fIndexSewa = new indexSewa();
+        indexSewa fIndexSewa = new indexSewa(this.id_user, this.id_cabang);
         bantuan.tampil(panelUtama, fIndexSewa, this.getSize());
     }//GEN-LAST:event_menuKelolaSewaActionPerformed
 
@@ -151,6 +160,11 @@ public class frameUtama extends javax.swing.JFrame {
             classKelolaUser.set_tampil(true);
         }
     }//GEN-LAST:event_menuKelolaUserActionPerformed
+
+    private void menuKelolaPenyewaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKelolaPenyewaActionPerformed
+        penyewa fPenyewa = new penyewa();
+        fPenyewa.setVisible(true);
+    }//GEN-LAST:event_menuKelolaPenyewaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu menu;

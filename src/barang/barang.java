@@ -1,5 +1,8 @@
 package barang;
 
+import sewa.detailSewa;
+import sewa.sewaController;
+
 public class barang {
     private int id;
     private int idCabang;
@@ -83,6 +86,11 @@ public class barang {
 
     public void setHargaSewa(float hargaSewa) {
         this.hargaSewa = hargaSewa;
+    }
+    
+    public detailSewa getDetailSewaBySewa(int idSewa) {
+        sewaController sc = new sewaController();
+        return sc.pilihSatuDetailSewa(this.id, idSewa);
     }
 
     @Override

@@ -28,7 +28,7 @@ public class bantuan {
     }
     
     public static long bandingkanHari(Date dari, Date sampai) {
-        long d = (dari.getTime() / (24 * 60 * 60 * 1000));
+        long d = dari.getTime() / (24 * 60 * 60 * 1000);
         long s = sampai.getTime() / (24 * 60 * 60 * 1000);
         return s - d;
     }

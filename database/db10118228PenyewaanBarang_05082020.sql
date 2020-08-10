@@ -68,14 +68,41 @@ CREATE TABLE detail_sewa (
     FOREIGN KEY (id_barang) REFERENCES barang(id_barang)
 );
 
-INSERT INTO cabang VALUES
-(1, "Cabang 1", "Jl. Cabang 1.", "087825418390");
+INSERT INTO cabang VALUES 
+(1, "Cabang 1", "Jl. Cabang 1.", "087825418390"),
+(2, "Cabang 2", "Jl. Cabang 2.", "087825418391");
 
-INSERT INTO penyewa VALUES
-("1234567890123456", "Penyewa 1", "Jl. Penyewa 1.", "087722394860");
+insert  into `penyewa`(`no_ktp`,`nama`,`alamat`,`kontak`) values 
+('001XXX','Ade Irma','Jl. Sukajadi','087XXXXXXXXX'),
+('010XXX','Fiki Fauzi','Jl. Sukajadi','089XXXXXXXXX'),
+('011XXX','Adi Firmansyah','Jl. Sukajadi','085XXXXXXXXX'),
+('022XXX','Vira Ayu','Jl. Cibeber','085XXXXXXXXX'),
+('023XXX','Elvira Karina','Jl. Cimelati','0823XXXXXXXX'),
+('031XXX','Aditya Muhammad','Jl. Kaum','085XXXXXXXXX'),
+('032XXX','Maulana Fajar Shidiq','Jl. Kaum ','082312109237'),
+('041XXX','Rara Fitri','Jl. Cibeber','082XXXXXXXXX'),
+('042XXX','Fatoni Raihan','Jl. Kaum ','083XXXXXXXXX'),
+('110XXX','Fitriani Ningsih','Jl. Cimelati','082XXXXXXXXX'),
+('123XXX','Dani Hermawan','Jl. Parungkuda','085XXXXXXXXX'),
+('200XXX','Putri Ayu Dewi','Jl. Cibeber','085XXXXXXXXX'),
+('201XXX','Karina Putri','Jl. Cimelati','089XXXXXXXXX'),
+('221XXX','Viska Ayu','Jl. Cibeber','089XXXXXXXXX'),
+('321XXX','Rani Setiawan','Jl. Parungkuda','089XXXXXXXXX'),
+('323XXX','Danu Rohim','Jl. Cibeber','081XXXXXXXXX'),
+('421XXX','Vilya Hardi','Jl. Cimelati','085XXXXXXXXX'),
+('431XXX','Ayu Dewi','Jl. Benda','082XXXXXXXXX'),
+('441XXX','Viska Hardi','Jl. Cimelati','081XXXXXXXXX'),
+('442XXX','Fauzi Hidayat','Jl. Benda','089XXXXXXXXX'),
+('520XXX','Dewi Sinta','Jl. Benda','082XXXXXXXXX'),
+('521XXX','Eri Setiawan','Jl. Parungkuda','081XXXXXXXXX'),
+('529XXX','Sinta Susanti','Jl. Benda','081XXXXXXXXX'),
+('530XXX','Rizky Firmansyah','Jl. Sukajadi','089XXXXXXXXX'),
+('531XXX','Siska Suhaini','Jl. Cibeber','089XXXXXXXXX');
 
-INSERT INTO user VALUES
-(1, 1, "User 1", "user1", "user123", "Admin", "Jl. User 1.", "08217050905", "2001-01-18");
+INSERT INTO user VALUES 
+(1, 1, "User 1", "user1", "user123", "admin", "Jl. User 1.", "08217050905", "2001-01-18"),
+(2, 1, "User 2", "user2", "user123", "pegawai", "Jl. User 2.", "08217050906", "2001-01-19"),
+(3, 2, "User 3", "user3", "user123", "admin", "Jl. User 3.", "08217050907", "2001-01-20");
 
 INSERT INTO barang VALUES
 (1, 1, "Barang 1", "Merk 1", 1984, "Jenis 1", 20, 35000),
