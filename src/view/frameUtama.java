@@ -2,6 +2,7 @@ package view;
 
 import helper.bantuan;
 import sewa.indexSewa;
+import Login.loginPengguna;
 import kelola_user.classKelolaUser;
 import kelola_user.kelolaUserUtama;
 
@@ -71,7 +72,7 @@ public class frameUtama extends javax.swing.JFrame {
 
         menuKeluar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_power_settings_new_black_18dp.png"))); // NOI18N
-        menuKeluar.setText("Keluar Aplikasi");
+        menuKeluar.setText("Logout");
         menuKeluar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuKeluarActionPerformed(evt);
@@ -127,6 +128,8 @@ public class frameUtama extends javax.swing.JFrame {
 
         menuLaporan.setText("Laporan");
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_receipt_long_black_18dp.png"))); // NOI18N
         jMenuItem1.setText("Laporan Pendapatan");
         menuLaporan.add(jMenuItem1);
 
@@ -149,7 +152,14 @@ public class frameUtama extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKeluarActionPerformed
-        System.exit(0);
+        info_pengguna.set_pengguna(0);
+        info_pengguna.set_cabang(0);
+        info_pengguna.set_status(null);
+        
+        loginPengguna login = new loginPengguna();
+        login.setVisible(true);
+        
+        this.dispose();
     }//GEN-LAST:event_menuKeluarActionPerformed
 
     private void menuKelolaSewaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKelolaSewaActionPerformed
