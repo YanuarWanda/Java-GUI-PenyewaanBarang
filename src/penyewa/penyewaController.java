@@ -16,7 +16,7 @@ public class penyewaController {
         
         try {
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM penyewa;";
+            String sql = "SELECT * FROM penyewa where no_ktp = '" + noKTP + "';";
             ResultSet rs = stmt.executeQuery(sql);
             
             if (rs.next()) {

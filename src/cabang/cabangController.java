@@ -8,13 +8,13 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 public class cabangController {
-    public cabang getCabang(int cabang) {
+    public cabang getCabang(int idCabang) {
         cabang c = null;
         Connection conn = koneksi.getConnection();
         
         try {
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM cabang;";
+            String sql = "SELECT * FROM cabang WHERE id_cabang = " + idCabang;
             ResultSet rs = stmt.executeQuery(sql);
             
             if (rs.next()) {

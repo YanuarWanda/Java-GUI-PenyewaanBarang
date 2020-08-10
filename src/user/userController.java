@@ -14,7 +14,7 @@ public class userController {
         
         try {
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM user";
+            String sql = "SELECT * FROM user WHERE id_user = " + id;
             ResultSet rs = stmt.executeQuery(sql);
             
             if (rs.next()) {

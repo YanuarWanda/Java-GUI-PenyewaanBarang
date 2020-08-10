@@ -35,16 +35,13 @@ public class sewaController {
             return list;
         }
     }
-    public ArrayList<sewa> tampilSemuaSewa(String status, int idCabang) {
+    public ArrayList<sewa> tampilSemuaSewa(int idCabang) {
         ArrayList<sewa> list = new ArrayList<>();
         Connection conn = koneksi.getConnection();
         
         try {
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM sewa";
-            if (!status.equals("admin")) {
-                sql = sql + " WHERE id_cabang = " + idCabang + ";";
-            }
+            String sql = "SELECT * FROM sewa WHERE id_cabang = " + idCabang + ";";
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()) {
                 list.add(new sewa(

@@ -3,6 +3,7 @@ package sewa;
 import barang.barang;
 import barang.barangController;
 import javax.swing.JOptionPane;
+import view.info_pengguna;
 
 public class indexSewa extends javax.swing.JInternalFrame {
     int id_user = 0;
@@ -20,7 +21,7 @@ public class indexSewa extends javax.swing.JInternalFrame {
     }
     
     public void tampilSewa() {
-        tabelModel.setData(sc.tampilSemuaSewa());
+        tabelModel.setData(sc.tampilSemuaSewa(info_pengguna.get_cabang()));
         tSewa.setModel(tabelModel);
         
         // Mengatur lebar kolom
@@ -30,7 +31,7 @@ public class indexSewa extends javax.swing.JInternalFrame {
     }
     
     public void refresh() {
-        tabelModel.setData(sc.tampilSemuaSewa());
+        tabelModel.setData(sc.tampilSemuaSewa(info_pengguna.get_cabang()));
         tabelModel.fireTableDataChanged();
         tSewa.changeSelection(0, 0, false, false);
     }

@@ -62,12 +62,10 @@ public class sewa {
         return tanggalPengembalian;
     }
     
-    // TODO: Hitung total dari harga_sewa detail sewa
     public float getTotal() {
         return total;
     }
 
-    // TODO: Hitung denda dari denda detail_sewa
     public float getDenda() {
         return denda;
     }
