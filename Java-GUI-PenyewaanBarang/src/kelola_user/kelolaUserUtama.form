@@ -57,7 +57,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="23" max="32767" attributes="0"/>
+              <EmptySpace pref="31" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="TxtCari" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="TblCari" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -148,6 +148,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TabelDataMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -219,6 +222,9 @@
                   </Border>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TblLihatActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="TblTambah">
               <Properties>
@@ -241,6 +247,9 @@
                   </Border>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TblTambahActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="TblEdit">
               <Properties>
@@ -263,6 +272,9 @@
                   </Border>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TblEditActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="TblHapus">
               <Properties>
@@ -307,6 +319,9 @@
                   </Border>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TblRefreshActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

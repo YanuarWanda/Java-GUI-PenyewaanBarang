@@ -2,6 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/project/Java-GUI-PenyewaanBarang/src/kelola_user/kelolaUserTambah.java</file>
+            <file>file:/C:/project/Java-GUI-PenyewaanBarang/src/kelola_user/kelolaUserEdit.java</file>
+            <file>file:/C:/project/Java-GUI-PenyewaanBarang/src/kelola_user/classEditUser.java</file>
+            <file>file:/C:/project/Java-GUI-PenyewaanBarang/src/kelola_user/classTambahUser.java</file>
+            <file>file:/C:/project/Java-GUI-PenyewaanBarang/src/view/frameUtama.java</file>
+            <file>file:/C:/project/Java-GUI-PenyewaanBarang/src/kelola_user/kelolaUserUtama.java</file>
+            <file>file:/C:/project/Java-GUI-PenyewaanBarang/src/kelola_user/classBacaUser.java</file>
+            <file>file:/C:/project/Java-GUI-PenyewaanBarang/src/kelola_user/kelolaUserLihat.java</file>
+            <file>file:/C:/project/Java-GUI-PenyewaanBarang/src/kelola_user/classKelolaUser.java</file>
+        </group>
     </open-files>
 </project-private>

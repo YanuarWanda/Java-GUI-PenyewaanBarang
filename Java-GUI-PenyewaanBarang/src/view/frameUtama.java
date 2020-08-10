@@ -7,17 +7,16 @@ import kelola_user.kelolaUserUtama;
 import sewa.indexSewa;
 
 public class frameUtama extends javax.swing.JFrame {
-    int id_user = 0;
-    int id_cabang = 0;
-    String status = "";
+
     /**
      * Creates new form frameUtama
      */
     public frameUtama(int id_user, int id_cabang,String status) {
         initComponents();
-        this.id_user = id_user;
-        this.id_cabang = id_cabang;
-        this.status = status;
+        info_pengguna.set_cabang(id_cabang);
+        info_pengguna.set_pengguna(id_user);
+        info_pengguna.set_status(status);
+        
         this.setExtendedState(MAXIMIZED_BOTH);
     }
 
