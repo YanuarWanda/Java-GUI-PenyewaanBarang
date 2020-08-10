@@ -1,6 +1,8 @@
 package helper;
 
 import java.awt.Dimension;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -45,5 +47,17 @@ public class bantuan {
         
         c.add(Calendar.DATE, 1);
         return c.getTime();
+    }
+    
+    public static String formatRupiah(float angka) {
+        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+ 
+        formatRp.setCurrencySymbol("Rp. ");
+        formatRp.setMonetaryDecimalSeparator(',');
+        formatRp.setGroupingSeparator('.');
+ 
+        kursIndonesia.setDecimalFormatSymbols(formatRp);
+        return kursIndonesia.format(angka);
     }
 }

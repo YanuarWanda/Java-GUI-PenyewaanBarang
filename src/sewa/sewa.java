@@ -1,9 +1,13 @@
 package sewa;
 
 import barang.barang;
+import penyewa.penyewa;
+import user.user;
+import cabang.cabang;
 import barang.barangController;
 import penyewa.penyewaController;
-import penyewa.penyewa;
+import user.userController;
+import cabang.cabangController;
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -117,5 +121,15 @@ public class sewa {
     public ArrayList<detailSewa> getSemuaDetailSewa() {
         sewaController sc = new sewaController();
         return sc.getDetailSewa(this.id);
+    }
+    
+    public user getPegawai() {
+        userController uc = new userController();
+        return uc.getUser(this.idPegawai);
+    }
+    
+    public cabang getCabang() {
+        cabangController cc = new cabangController();
+        return cc.getCabang(this.idCabang);
     }
 }
