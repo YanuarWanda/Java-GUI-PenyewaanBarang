@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cetakSewa" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c3893a1a-8fac-4bc7-ae23-c775b2f6ce7f">
+	<property name="ireport.zoom" value="1.0000000000000036"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFE6E6">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="d0f97e7e-a7bf-4952-80d0-9f4b9085bf2f">
+		<parameter name="idSewa" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT barang.nama AS namaBarang, jumlah, keterangan_denda, denda, total FROM detail_sewa JOIN barang USING(id_barang) WHERE id_sewa = $P{idSewa}]]>
+		</queryString>
+		<field name="namaBarang" class="java.lang.String"/>
+		<field name="jumlah" class="java.lang.Integer">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="keterangan_denda" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="denda" class="java.lang.Float">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="total" class="java.lang.Float">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+	</subDataset>
+	<subDataset name="dataset1" uuid="f78af0c7-3765-4e55-b756-1517d6295ef3"/>
+	<parameter name="idSewa" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT id_sewa, user.nama AS namaUser, cabang.nama AS namaCabang, cabang.alamat AS alamatCabang, cabang.kontak AS kontakCabang, penyewa.nama AS namaPenyewa, no_ktp, penyewa.alamat as alamatPenyewa, penyewa.kontak AS kontakPenyewa, tanggal_peminjaman, peminjaman_sampai, tanggal_pengembalian, total, denda FROM sewa JOIN cabang USING(id_cabang) JOIN user USING (id_user) JOIN penyewa USING(no_ktp) WHERE id_sewa = $P{idSewa};]]>
+	</queryString>
+	<field name="id_sewa" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="namaUser" class="java.lang.String"/>
+	<field name="namaCabang" class="java.lang.String"/>
+	<field name="alamatCabang" class="java.lang.String"/>
+	<field name="kontakCabang" class="java.lang.String"/>
+	<field name="namaPenyewa" class="java.lang.String"/>
+	<field name="no_ktp" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="alamatPenyewa" class="java.lang.String"/>
+	<field name="kontakPenyewa" class="java.lang.String"/>
+	<field name="tanggal_peminjaman" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="peminjaman_sampai" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tanggal_pengembalian" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="denda" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="63" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="63" uuid="05bc6cd1-beb9-4102-bffa-db54afac5d79"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Data Sewa]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="436" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="196" width="162" height="20" uuid="4c36ba3a-2e73-484d-ae81-111b82dc3a82"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Tanggal Peminjaman]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="162" y="196" width="11" height="20" uuid="16e9441b-4512-4aff-b109-20db157d2364"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="173" y="196" width="382" height="20" uuid="680e23ae-bf47-43a7-b2cc-2f5d981d2ef3"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tanggal_peminjaman}.toString() + " - " + $F{peminjaman_sampai}.toString()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="216" width="162" height="20" uuid="49fcfec7-0354-4d40-89cb-0295c605365b"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Tanggal Pengembalian]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="162" y="216" width="11" height="20" uuid="6ab61739-1f17-4a72-9439-54b6862a752f"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="173" y="216" width="382" height="20" uuid="06825316-5cc7-4583-83d5-ccb0b071b057"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tanggal_pengembalian}.toString()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="108" width="162" height="20" uuid="a16317a1-89a2-4732-87a0-9cf96ed3bfa8"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Atas Nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="162" y="108" width="11" height="20" uuid="b86d3e8b-cb31-4297-be2b-c80e526c0ef4"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="173" y="108" width="382" height="20" uuid="9135df9a-ac83-4956-84b3-4ee032a0e1ce"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{namaPenyewa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="128" width="162" height="20" uuid="b603eecf-5c64-4b03-80b2-c7d7a6342ac2"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[No KTP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="162" y="128" width="11" height="20" uuid="74681dc9-c958-4151-8c3c-22846e8e46ec"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="148" width="162" height="20" uuid="a347d27f-659d-4a4a-adf2-2630c6e3badc"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Alamat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="162" y="148" width="11" height="20" uuid="3bdf4ec5-cf0d-48c4-8dad-9cbb84fa0017"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="168" width="162" height="20" uuid="48d5f194-5cce-46af-8fe2-38efac92420a"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Kontak]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="162" y="168" width="11" height="20" uuid="6c66527b-077a-4419-9d6d-c230b44d50a5"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="173" y="128" width="382" height="20" uuid="b5f766b4-a669-465f-87d5-5192b2ffb316"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{no_ktp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="173" y="148" width="382" height="20" uuid="2d151847-afb5-4c24-a951-343c5749868d"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alamatPenyewa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="173" y="168" width="382" height="20" uuid="0fa69b13-26d1-47af-b887-3e9f5aa5130b"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kontakPenyewa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="277" y="396" width="278" height="20" uuid="96cd66ca-ad31-4758-8d27-2e70246f5e13"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{denda}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="396" width="266" height="20" uuid="8025cb47-dc19-4fc1-a573-6ee0f91cfc0c"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Denda telat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="396" width="11" height="20" uuid="1c368509-6c4a-4287-8078-c8a8b408c83a"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="0" y="244" width="555" height="48" uuid="9220c4e7-815f-4891-a749-81ad445450cc"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="Table Dataset 1" uuid="e86666e0-30a3-40ba-88a9-4d1a87881cab">
+						<datasetParameter name="idSewa">
+							<datasetParameterExpression><![CDATA[$P{idSewa}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:listContents height="48" width="555">
+						<textField>
+							<reportElement x="0" y="0" width="277" height="20" uuid="212b3d27-a2e8-4f6c-b045-b5a3fc224ecf"/>
+							<textElement>
+								<font size="14"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{namaBarang} + " (" + $F{jumlah} + ")"]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="0" y="20" width="277" height="20" uuid="01ee915a-b606-4a8c-a30b-37e39bb378d5"/>
+							<textElement>
+								<font size="14"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{keterangan_denda}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="277" y="20" width="278" height="20" uuid="b328dfee-c121-4e75-ac25-2569a0c0b8e1"/>
+							<textElement>
+								<font size="14"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{denda}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="277" y="0" width="278" height="20" uuid="181f1665-52f3-4676-b07b-d9957bcdacf9"/>
+							<textElement>
+								<font size="14"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<line>
+				<reportElement x="0" y="100" width="555" height="1" uuid="69d8923e-10c1-47aa-860d-9837303aeeba"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="20" width="162" height="20" uuid="22c9ba28-461a-4c69-b389-379297310242"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Pegawai]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="173" y="20" width="382" height="20" uuid="a67976b7-5d12-4ee8-9204-bd37aecbcedb"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{namaUser}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="162" height="20" uuid="3ce22b0d-cfa2-4cc8-ad46-6e15e2c9eb81"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[No Sewa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="162" y="40" width="11" height="20" uuid="735734fc-484a-46e7-80d0-bf5b73938e14"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="162" height="20" uuid="0d2dfe0d-4aa9-43e6-9fc3-f19f976e3b0b"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Cabang]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="173" y="80" width="382" height="20" uuid="46b958ff-ac3a-4721-ae01-9e4aa4785d9d"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kontakCabang}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="162" y="20" width="11" height="20" uuid="a2d0ad7f-d077-4daa-8959-654ca8ed728c"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="173" y="0" width="382" height="20" uuid="f4112a88-6e4e-4c15-9879-a9e02850c190"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_sewa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="173" y="60" width="382" height="20" uuid="6c169b26-eefc-424c-aaa4-0b96b250107f"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alamatCabang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="173" y="40" width="382" height="20" uuid="3a8e6f44-f5e9-44d8-8be1-aa8254626131"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{namaCabang}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="162" y="0" width="11" height="20" uuid="b7b37073-c736-4651-90e7-42060311dbab"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="188" width="555" height="1" uuid="a806ac9e-cf71-428a-95d8-201e5c6d49f9"/>
+			</line>
+			<line>
+				<reportElement x="0" y="236" width="555" height="1" uuid="33d6acdc-6433-45f6-a449-837d4a2e5a5f"/>
+			</line>
+			<line>
+				<reportElement x="0" y="388" width="555" height="1" uuid="58edf732-288a-40a1-9180-e3e3e8c8b479"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="416" width="266" height="20" uuid="55c3d6fd-c978-4520-be0a-7672f2c19fc2"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="416" width="11" height="20" uuid="e6b73d89-fa33-4b52-b14a-dbf5479f278e"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="277" y="416" width="278" height="20" uuid="c09e0a6b-1a97-463b-a7ad-2cbee45c1896"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="455" y="0" width="100" height="20" uuid="c9f01628-9788-4762-88d6-4d94a53e977c"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="355" y="0" width="100" height="20" uuid="b0491abf-8e82-44a6-986e-65e2d119f9b2"/>
+				<textElement markup="none"/>
+				<text><![CDATA[Dibuat pada tanggal:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

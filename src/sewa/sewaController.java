@@ -2,12 +2,21 @@ package sewa;
 
 import barang.barangController;
 import helper.koneksi;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class sewaController {
     barangController bc = new barangController();
@@ -237,5 +246,19 @@ public class sewaController {
         } finally {
             koneksi.closeConnection(conn);
         }
+    }
+    public void cetakSewa(sewa s) throws JRException {
+        Connection conn = koneksi.getConnection();
+        
+        // Cetak data
+        HashMap params = new HashMap();
+        params.put("idSewa", s.getId());
+        
+        // Ambil file
+        File file = new File("src/laporan/cetakSewa.jasper");
+        JasperReport jp = (JasperReport) JRLoader.loadObject(file);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jp, params, conn);
+        JasperViewer.viewReport(jasperPrint, false);
+        JasperViewer.setDefaultLookAndFeelDecorated(true);
     }
 }
