@@ -18,7 +18,7 @@ public class sewaController {
         
         try {
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM sewa";
+            String sql = "SELECT * FROM sewa ORDER BY id_sewa DESC";
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()) {
                 list.add(new sewa(
@@ -41,7 +41,7 @@ public class sewaController {
         
         try {
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM sewa WHERE id_cabang = " + idCabang + ";";
+            String sql = "SELECT * FROM sewa WHERE id_cabang = " + idCabang + " ORDER BY id_sewa DESC;";
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()) {
                 list.add(new sewa(
