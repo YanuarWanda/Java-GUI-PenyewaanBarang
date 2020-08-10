@@ -44,7 +44,7 @@ public class class_login {
             Connection conn = DriverManager.getConnection(urlValue);
             
             PreparedStatement pStatement = null;
-            String sql1 = "select * from user where username = ?";
+            String sql1 = "select * from user where username = ? and status != 'deleted'";
             
             pStatement = conn.prepareStatement(sql1);
             pStatement.setString(1, username);

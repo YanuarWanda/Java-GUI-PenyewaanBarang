@@ -5,20 +5,17 @@
  */
 package kelola_user;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author ilham
  */
 public class classKelolaUser {
+
+    
     private static boolean tampil = false;
+    private static boolean tampilPilihan= false;
     private static String cari = "";
+    private static int id_tabel = 0;
     
     public static void set_tampil(boolean val){
         tampil = val;
@@ -27,10 +24,27 @@ public class classKelolaUser {
         return tampil;
     }
     
-    public static void set_cari(String val){
-        cari = "%"+val+"%";
+    public static void set_tampilPilihan(boolean val){
+        tampilPilihan = val;
     }
+    
+    public static boolean get_tampilPilihan(){
+        return tampilPilihan;
+    }
+    
+    public static void set_cari(String val){
+        cari = val;
+    }
+    
     public static String get_cari(){
         return cari;
+    }
+    
+    public static void set_idTabel(int id){
+        id_tabel = id;
+    }
+    
+    public static int get_idTabel(){
+        return id_tabel;
     }
 }

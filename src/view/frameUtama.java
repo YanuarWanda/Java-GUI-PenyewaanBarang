@@ -6,15 +6,12 @@ import kelola_user.classKelolaUser;
 import kelola_user.kelolaUserUtama;
 
 public class frameUtama extends javax.swing.JFrame {
-    int id_user = 0;
-    int id_cabang = 0;
-    String status = "";
-    
     public frameUtama(int id_user, int id_cabang, String status) {
         initComponents();
-        this.id_user = id_user;
-        this.id_cabang = id_cabang;
-        this.status = status;
+        info_pengguna.set_cabang(id_cabang);
+        info_pengguna.set_pengguna(id_user);
+        info_pengguna.set_status(status);
+        
         this.setExtendedState(MAXIMIZED_BOTH);
         
         if (!status.equals("admin")) {
@@ -148,7 +145,7 @@ public class frameUtama extends javax.swing.JFrame {
     }//GEN-LAST:event_menuKeluarActionPerformed
 
     private void menuKelolaSewaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKelolaSewaActionPerformed
-        indexSewa fIndexSewa = new indexSewa(this.id_user, this.id_cabang);
+        indexSewa fIndexSewa = new indexSewa(info_pengguna.get_pengguna(), info_pengguna.get_cabang());
         bantuan.tampil(panelUtama, fIndexSewa, this.getSize());
     }//GEN-LAST:event_menuKelolaSewaActionPerformed
 

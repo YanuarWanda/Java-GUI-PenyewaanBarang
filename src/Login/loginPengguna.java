@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Login;
 
 import javax.swing.JOptionPane;
@@ -9,7 +14,9 @@ import view.frameUtama;
  */
 public class loginPengguna extends javax.swing.JFrame {
     class_login cl = new class_login();
-
+    /**
+     * Creates new form frame_login
+     */
     public loginPengguna() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
@@ -170,10 +177,12 @@ public class loginPengguna extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_keluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_keluarActionPerformed
+
         dispose();
     }//GEN-LAST:event_btn_keluarActionPerformed
 
     private void btn_masukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_masukActionPerformed
+        // TODO add your handling code here:
         String username = txt_username.getText();
         String password = txt_password.getText();
         if(!username.equals("") && !password.equals("")){
@@ -186,10 +195,13 @@ public class loginPengguna extends javax.swing.JFrame {
                     new frameUtama(id_user, id_cabang, status).setVisible(true);
                     this.dispose();
                 }else if(status.equals("pegawai")){
-                    JOptionPane.showMessageDialog(this,"PEGAWAI");
+                    new frameUtama(id_user, id_cabang, status).setVisible(true);
+                    this.dispose();
+                }else{
+                    JOptionPane.showMessageDialog(this, "username atau password salah");
                 }
             }else{
-                JOptionPane.showMessageDialog(this, "gagal");
+                JOptionPane.showMessageDialog(this, "username atau password salah");
             }
         }else{
             lbl_pesan.setText("Harap Mengisi Kolom yang sudah tersedia");
@@ -223,6 +235,8 @@ public class loginPengguna extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -231,7 +245,7 @@ public class loginPengguna extends javax.swing.JFrame {
             }
         });
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_keluar;
     private javax.swing.JButton btn_masuk;

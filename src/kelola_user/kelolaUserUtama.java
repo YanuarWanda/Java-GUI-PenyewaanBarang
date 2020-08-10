@@ -5,14 +5,16 @@
  */
 package kelola_user;
 
-import static java.awt.Frame.MAXIMIZED_BOTH;
+import helper.bantuan;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -24,17 +26,15 @@ public class kelolaUserUtama extends javax.swing.JInternalFrame {
     private final String host = "localhost";
     private final String db = "db10118228penyewaanbarang";
     private String urlValue = "";
-    String a = "";
     /**
      * Creates new form frame_kelolaUser
      */
     public kelolaUserUtama() {
         initComponents();
-//        JOptionPane.showMessageDialog(this, );
-        tampil_tabelAwal();
+        tampil_tabel("");
     }
     
-    private void tampil_tabel(String like){
+    private void tampil_tabel(String str){
         try {
             DefaultTableModel model = (DefaultTableModel) TabelData.getModel();
             model.setRowCount(0);
@@ -43,7 +43,8 @@ public class kelolaUserUtama extends javax.swing.JInternalFrame {
             Connection conn = DriverManager.getConnection(urlValue);
             
             PreparedStatement pStatement = null;
-            String sql1 = "select id_user, user.nama, cabang.nama, status from user inner join cabang on user.id_cabang = cabang.id_cabang where user.nama like ?";
+            String like = "%" + str + "%";
+            String sql1 = "select id_user, user.nama, cabang.nama, status from user inner join cabang on user.id_cabang = cabang.id_cabang where user.nama like ? and status != 'deleted'";
             pStatement = conn.prepareStatement(sql1);
             pStatement.setString(1, like);
             ResultSet rs = pStatement.executeQuery();
@@ -67,37 +68,6 @@ public class kelolaUserUtama extends javax.swing.JInternalFrame {
         }
     }
     
-    private void tampil_tabelAwal(){
-        try {
-            DefaultTableModel model = (DefaultTableModel) TabelData.getModel();
-            model.setRowCount(0);
-            Class.forName("com.mysql.jdbc.Driver");
-            urlValue = "jdbc:mysql://" + host + "/" + db + "?user=" + user + "&password=" + pwd;
-            Connection conn = DriverManager.getConnection(urlValue);
-            
-            PreparedStatement pStatement = null;
-            String sql1 = "select id_user, user.nama, cabang.nama, status from user inner join cabang on user.id_cabang = cabang.id_cabang";
-            pStatement = conn.prepareStatement(sql1);
-            ResultSet rs = pStatement.executeQuery();
-            
-            while (rs.next()) {
-                model.addRow(new Object[]{
-                    rs.getInt("id_user"),
-                    rs.getString("user.nama"),
-                    rs.getString("status"),
-                    rs.getString("cabang.nama")
-                });
-            }
-            TabelData.setRowHeight(20);
-            pStatement.close();
-            conn.close();
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Koneksi Gagal, " + e.toString());
-        } catch (ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "JDBC Driver tidak ditemukan");
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -171,6 +141,11 @@ public class kelolaUserUtama extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        TabelData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabelDataMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TabelData);
         if (TabelData.getColumnModel().getColumnCount() > 0) {
             TabelData.getColumnModel().getColumn(0).setResizable(false);
@@ -194,6 +169,11 @@ public class kelolaUserUtama extends javax.swing.JInternalFrame {
         TblLihat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_account_circle_white_18dp.png"))); // NOI18N
         TblLihat.setText("Lihat");
         TblLihat.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        TblLihat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TblLihatActionPerformed(evt);
+            }
+        });
         jPanel2.add(TblLihat);
 
         TblTambah.setBackground(new java.awt.Color(0, 102, 153));
@@ -202,6 +182,11 @@ public class kelolaUserUtama extends javax.swing.JInternalFrame {
         TblTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_add_circle_outline_white_18dp.png"))); // NOI18N
         TblTambah.setText("Tambah");
         TblTambah.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        TblTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TblTambahActionPerformed(evt);
+            }
+        });
         jPanel2.add(TblTambah);
 
         TblEdit.setBackground(new java.awt.Color(0, 102, 153));
@@ -210,6 +195,11 @@ public class kelolaUserUtama extends javax.swing.JInternalFrame {
         TblEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_create_white_18dp.png"))); // NOI18N
         TblEdit.setText("Edit");
         TblEdit.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        TblEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TblEditActionPerformed(evt);
+            }
+        });
         jPanel2.add(TblEdit);
 
         TblHapus.setBackground(new java.awt.Color(0, 102, 153));
@@ -218,6 +208,11 @@ public class kelolaUserUtama extends javax.swing.JInternalFrame {
         TblHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_delete_white_18dp.png"))); // NOI18N
         TblHapus.setText("Hapus");
         TblHapus.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        TblHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TblHapusActionPerformed(evt);
+            }
+        });
         jPanel2.add(TblHapus);
 
         TblRefresh.setBackground(new java.awt.Color(0, 102, 153));
@@ -226,6 +221,11 @@ public class kelolaUserUtama extends javax.swing.JInternalFrame {
         TblRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_refresh_white_18dp.png"))); // NOI18N
         TblRefresh.setText("Refresh");
         TblRefresh.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        TblRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TblRefreshActionPerformed(evt);
+            }
+        });
         jPanel2.add(TblRefresh);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -263,7 +263,7 @@ public class kelolaUserUtama extends javax.swing.JInternalFrame {
                                 .addGap(34, 34, 34)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(344, 344, 344)
+                        .addGap(356, 356, 356)
                         .addComponent(jLabel1)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
@@ -272,7 +272,7 @@ public class kelolaUserUtama extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TxtCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TblCari))
@@ -296,6 +296,79 @@ public class kelolaUserUtama extends javax.swing.JInternalFrame {
         classKelolaUser.set_cari(TxtCari.getText());
         tampil_tabel(classKelolaUser.get_cari());
     }//GEN-LAST:event_TblCariActionPerformed
+
+    private void TblLihatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TblLihatActionPerformed
+        // TODO add your handling code here:
+        boolean buka = classKelolaUser.get_tampilPilihan();
+        
+        if(!buka && classKelolaUser.get_idTabel()!= 0){
+            kelolaUserLihat KUL = new kelolaUserLihat();
+            JDesktopPane panelUtama = getDesktopPane();
+            bantuan.tampil(panelUtama, KUL, panelUtama.getSize());
+            classKelolaUser.set_tampilPilihan(true);
+        }else if(classKelolaUser.get_idTabel() == 0){
+            JOptionPane.showMessageDialog(this, "Harap pilih salah 1 kolom yang ingin dilihat datanya");
+        }
+    }//GEN-LAST:event_TblLihatActionPerformed
+
+    private void TabelDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelDataMouseClicked
+        // TODO add your handling code here:
+        int i = TabelData.getSelectedRow();
+        TableModel tm = TabelData.getModel();
+
+        int id = (int) tm.getValueAt(i, 0);
+        classKelolaUser.set_idTabel(id);
+        classHapusUser.set_id(id);
+    }//GEN-LAST:event_TabelDataMouseClicked
+
+    private void TblRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TblRefreshActionPerformed
+        // TODO add your handling code here:
+        TxtCari.setText("");
+        classKelolaUser.set_idTabel(0);
+        tampil_tabel("");
+    }//GEN-LAST:event_TblRefreshActionPerformed
+
+    private void TblTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TblTambahActionPerformed
+        // TODO add your handling code here:
+        boolean buka = classKelolaUser.get_tampilPilihan();
+        
+        if(!buka){
+            kelolaUserTambah KUT = new kelolaUserTambah();
+            JDesktopPane panelUtama = getDesktopPane();
+            bantuan.tampil(panelUtama, KUT, panelUtama.getSize());
+            classKelolaUser.set_tampilPilihan(true);
+        }
+    }//GEN-LAST:event_TblTambahActionPerformed
+
+    private void TblEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TblEditActionPerformed
+        // TODO add your handling code here:
+        boolean buka = classKelolaUser.get_tampilPilihan();
+        
+        if(!buka && classKelolaUser.get_idTabel()!= 0){
+            kelolaUserEdit KUE = new kelolaUserEdit();
+            JDesktopPane panelUtama = getDesktopPane();
+            bantuan.tampil(panelUtama, KUE, panelUtama.getSize());
+            classKelolaUser.set_tampilPilihan(true);
+        }else if(classKelolaUser.get_idTabel() == 0){
+            JOptionPane.showMessageDialog(this, "Harap pilih salah 1 kolom yang ingin dilihat datanya");
+        }
+    }//GEN-LAST:event_TblEditActionPerformed
+
+    private void TblHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TblHapusActionPerformed
+        // TODO add your handling code here:
+        boolean buka = classKelolaUser.get_tampilPilihan();
+        if(!buka && classKelolaUser.get_idTabel()!= 0){
+            int input = JOptionPane.showConfirmDialog(null, "Apakah anda yakin ingin menghapus user dengan id " + Integer.valueOf(classHapusUser.get_id()) + "?", "Peringatan", JOptionPane.YES_NO_OPTION);
+            if(input == 0){
+                boolean hapus = classHapusUser.hapus_user();
+                if(hapus){
+                    tampil_tabel(classKelolaUser.get_cari());
+                }else{
+                    JOptionPane.showMessageDialog(this, "Gagal menghapus data ini");
+                }
+            }
+        }
+    }//GEN-LAST:event_TblHapusActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
