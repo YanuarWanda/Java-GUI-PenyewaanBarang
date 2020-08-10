@@ -5,10 +5,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Yanuar Wanda Putra
- */
 public class koneksi {
     private static final String driver = "com.mysql.jdbc.Driver";
     private static final String url = "jdbc:mysql://localhost/db10118228PenyewaanBarang";
@@ -26,5 +22,13 @@ public class koneksi {
         }
         
         return conn;
+    }
+    
+    public static void closeConnection(Connection conn) {
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
     }
 }
