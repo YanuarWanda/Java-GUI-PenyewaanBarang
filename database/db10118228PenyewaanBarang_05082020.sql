@@ -95,23 +95,6 @@ insert  into `penyewa`(`no_ktp`,`nama`,`alamat`,`kontak`) values
 ('530XXX','Rizky Firmansyah','Jl. Sukajadi','089XXXXXXXXX'),
 ('531XXX','Siska Suhaini','Jl. Cibeber','089XXXXXXXXX');
 
-INSERT INTO user VALUES 
-(1, 1, "User 1", "user1", "user123", "admin", "Jl. User 1.", "08217050905", "2001-01-18"),
-(2, 1, "User 2", "user2", "user123", "pegawai", "Jl. User 2.", "08217050906", "2001-01-19"),
-(3, 2, "User 3", "user3", "user123", "admin", "Jl. User 3.", "08217050907", "2001-01-20");
-
-INSERT INTO barang VALUES
-(1, 1, "Barang 1", "Merk 1", 1984, "Jenis 1", 20, 35000),
-(2, 1, "Barang 2", "Merk 2", 1999, "Jenis 2", 3, 75000),
-(3, 1, "Barang 3", "Merk 3", 2012, "Jenis 3", 80, 7500);
-
-INSERT INTO sewa VALUES
-(1, "1234567890123456", 1, 1, "2020-08-07", "2020-08-09", NULL, 290000, NULL);
-
-INSERT INTO detail_sewa VALUES
-(1, 1, 2, 140000, NULL, NULL),
-(1, 2, 1, 150000, NULL, NULL);
-
 insert  into `cabang`(`id_cabang`,`nama`,`alamat`,`kontak`) values 
 (1,'Cabang 1','Jl. Cabang 1.','087825418390'),
 (2,'Cabang 2','Jl. Cabang 2.','087825418391'),
@@ -163,3 +146,20 @@ insert  into `cabang`(`id_cabang`,`nama`,`alamat`,`kontak`) values
 (48,'Cabang 48','Jl. Cabang 48.','0816365108'),
 (49,'Cabang 49','Jl. Cabang 49.','0816365109'),
 (50,'Cabang 50','Jl. Cabang 50.','0816665555');
+
+INSERT INTO user VALUES 
+(1, 1, "User 1", "user1", "user123", "admin", "Jl. User 1.", "08217050905", "2001-01-18"),
+(2, 1, "User 2", "user2", "user123", "pegawai", "Jl. User 2.", "08217050906", "2001-01-19"),
+(3, 2, "User 3", "user3", "user123", "admin", "Jl. User 3.", "08217050907", "2001-01-20");
+
+INSERT INTO barang VALUES
+(1, 1, "Barang 1", "Merk 1", 1984, "Jenis 1", 20, 35000),
+(2, 1, "Barang 2", "Merk 2", 1999, "Jenis 2", 3, 75000),
+(3, 1, "Barang 3", "Merk 3", 2012, "Jenis 3", 80, 7500);
+
+INSERT INTO sewa VALUES
+(1, "001XXX", 1, 1, "2020-08-07", "2020-08-09", NULL, 290000, NULL);
+
+INSERT INTO detail_sewa VALUES
+(1, 1, 2, 140000, NULL, NULL),
+(1, 2, 1, 150000, NULL, NULL);
