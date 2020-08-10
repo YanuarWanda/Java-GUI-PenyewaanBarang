@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class database {
     private String driver = "com.mysql.jdbc.Driver";
-    private String url ="jdbc:mysql://localost/db10118228PenyewaanBarang";
+    private String url ="jdbc:mysql://localhost/db10118228penyewaanbarang";
     private String user ="root";
     private String pass="powerlogicA23";
 
