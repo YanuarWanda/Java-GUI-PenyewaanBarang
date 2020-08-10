@@ -203,7 +203,7 @@ public class penyewa extends javax.swing.JInternalFrame {
                                 .addComponent(ipktp, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addComponent(reset1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,7 +232,7 @@ public class penyewa extends javax.swing.JInternalFrame {
                     .addComponent(save)
                     .addComponent(edit)
                     .addComponent(delete))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ipcari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
@@ -264,7 +264,8 @@ public class penyewa extends javax.swing.JInternalFrame {
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         // TODO add your handling code here:
         String ObjButtons[]={"Ya","Tidak"};
-        int PromptResult = JOptionPane.showOptionDialog(null, "Save Data Penyewa Ini?", "Messege", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, ObjButtons, ObjButtons[1]);
+        int PromptResult = JOptionPane.showOptionDialog(null, "Save Data Penyewa Ini?", "Messege", 
+                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, ObjButtons, ObjButtons[1]);
         if(PromptResult==0){
             kelola_penyewa klp = new kelola_penyewa();
             klp.no_ktp = ipktp.getText();
@@ -290,7 +291,8 @@ public class penyewa extends javax.swing.JInternalFrame {
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
         // TODO add your handling code here:
         String ObjButtons[]={"Ya","Tidak"};
-        int PromptResult = JOptionPane.showOptionDialog(null, "Edit Data Penyewa Ini?", "Messege", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, ObjButtons, ObjButtons[1]);
+        int PromptResult = JOptionPane.showOptionDialog(null, "Edit Data Penyewa Ini?", "Messege", 
+                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, ObjButtons, ObjButtons[1]);
         if(PromptResult==0){
             kelola_penyewa klp = new kelola_penyewa();
             klp.no_ktp = ipktp.getText();
@@ -316,7 +318,8 @@ public class penyewa extends javax.swing.JInternalFrame {
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         // TODO add your handling code here:
         String ObjButtons[]={"Ya","Tidak"};
-        int PromptResult = JOptionPane.showOptionDialog(null, "Hapus Data Penyewa Ini?", "Messege", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, ObjButtons, ObjButtons[1]);
+        int PromptResult = JOptionPane.showOptionDialog(null, "Hapus Data Penyewa Ini?", "Messege", 
+                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, ObjButtons, ObjButtons[1]);
         if(PromptResult==0){
             kelola_penyewa klp = new kelola_penyewa();
             klp.no_ktp = ipktp.getText();
