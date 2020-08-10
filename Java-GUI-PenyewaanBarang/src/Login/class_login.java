@@ -57,8 +57,7 @@ public class class_login {
                     status = rs.getString("status");
                     berhasil = true;
                 }
-            }            
-
+            }           
             pStatement.close();
             conn.close();
         } catch (SQLException e) {
