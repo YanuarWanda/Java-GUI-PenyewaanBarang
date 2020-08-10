@@ -146,7 +146,7 @@ public class loginPengguna extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(487, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -168,7 +168,7 @@ public class loginPengguna extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(38, 38, 38)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -195,10 +195,13 @@ public class loginPengguna extends javax.swing.JFrame {
                     new frameUtama(id_user, id_cabang, status).setVisible(true);
                     this.dispose();
                 }else if(status.equals("pegawai")){
-                    JOptionPane.showMessageDialog(this,"PEGAWAI");
+                    new frameUtama(id_user, id_cabang, status).setVisible(true);
+                    this.dispose();
+                }else{
+                    JOptionPane.showMessageDialog(this, "username atau password salah");
                 }
             }else{
-                JOptionPane.showMessageDialog(this, "gagal");
+                JOptionPane.showMessageDialog(this, "username atau password salah");
             }
         }else{
             lbl_pesan.setText("Harap Mengisi Kolom yang sudah tersedia");

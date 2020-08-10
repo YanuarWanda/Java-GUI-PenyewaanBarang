@@ -33,7 +33,7 @@ public class classKelolaUser {
     }
     
     public static void set_cari(String val){
-        cari = "%"+val+"%";
+        cari = val;
     }
     
     public static String get_cari(){

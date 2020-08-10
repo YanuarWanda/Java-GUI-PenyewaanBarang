@@ -203,7 +203,6 @@ public class classEditUser {
             String sql1 = "update user set id_cabang=?,nama=?,username=?,password=?,status=?,alamat=?,kontak=?,tanggal_lahir=? where id_user = ?";
             
             pStatement = conn.prepareStatement(sql1);
-            JOptionPane.showMessageDialog(null, id_cabang);
             pStatement.setInt(1, id_cabang);
             pStatement.setString(2, nama);
             pStatement.setString(3, username);

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Login;
+package kelola_user;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,27 +16,24 @@ import javax.swing.JOptionPane;
  *
  * @author ilham
  */
-public class class_login {
-    private String user = "root";
-    private String pwd = "";
-    private String host = "localhost";
-    private String db = "db10118228penyewaanbarang";
-    private String urlValue = "";
-    private String status = "";
-    private int id_user = 0;
-    private int id_cabang = 0;
+public class classHapusUser {
+    private static final String user = "root";
+    private static final String pwd = "";
+    private static final String host = "localhost";
+    private static final String db = "db10118228penyewaanbarang";
+    private static String urlValue = "";
     
-    public String get_status(){
-        return status;
+    private static int id_user = 0;
+
+    
+    public static void set_id(int id){
+        id_user = id;
     }
-    public int get_id_user(){
+    public static int get_id(){
         return id_user;
     }
-    public int get_id_cabang(){
-        return id_cabang;
-    }
-    
-    public boolean validasi_login(String username, String password){
+  
+    public static boolean hapus_user(){
         boolean berhasil = false;
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -44,20 +41,15 @@ public class class_login {
             Connection conn = DriverManager.getConnection(urlValue);
             
             PreparedStatement pStatement = null;
-            String sql1 = "select * from user where username = ? and status != 'deleted'";
+            String sql1 = "update user set username='',password='',status='deleted' where id_user = ?";
             
             pStatement = conn.prepareStatement(sql1);
-            pStatement.setString(1, username);
-            ResultSet rs = pStatement.executeQuery();
-
-            while (rs.next()) {
-                if (rs.getString("username").equals(username) && rs.getString("password").equals(password)) {
-                    id_user = rs.getInt("id_user");
-                    id_cabang = rs.getInt("id_cabang");
-                    status = rs.getString("status");
-                    berhasil = true;
-                }
-            }            
+            pStatement.setInt(1, id_user);
+            
+            int intBaris = pStatement.executeUpdate();
+            if (intBaris > 0) {
+                berhasil = true;
+            }       
 
             pStatement.close();
             conn.close();

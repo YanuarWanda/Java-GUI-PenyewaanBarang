@@ -31,10 +31,10 @@ public class kelolaUserUtama extends javax.swing.JInternalFrame {
      */
     public kelolaUserUtama() {
         initComponents();
-        tampil_tabelAwal();
+        tampil_tabel("");
     }
     
-    private void tampil_tabel(String like){
+    private void tampil_tabel(String str){
         try {
             DefaultTableModel model = (DefaultTableModel) TabelData.getModel();
             model.setRowCount(0);
@@ -43,7 +43,8 @@ public class kelolaUserUtama extends javax.swing.JInternalFrame {
             Connection conn = DriverManager.getConnection(urlValue);
             
             PreparedStatement pStatement = null;
-            String sql1 = "select id_user, user.nama, cabang.nama, status from user inner join cabang on user.id_cabang = cabang.id_cabang where user.nama like ?";
+            String like = "%" + str + "%";
+            String sql1 = "select id_user, user.nama, cabang.nama, status from user inner join cabang on user.id_cabang = cabang.id_cabang where user.nama like ? and status != 'deleted'";
             pStatement = conn.prepareStatement(sql1);
             pStatement.setString(1, like);
             ResultSet rs = pStatement.executeQuery();
@@ -67,37 +68,6 @@ public class kelolaUserUtama extends javax.swing.JInternalFrame {
         }
     }
     
-    private void tampil_tabelAwal(){
-        try {
-            DefaultTableModel model = (DefaultTableModel) TabelData.getModel();
-            model.setRowCount(0);
-            Class.forName("com.mysql.jdbc.Driver");
-            urlValue = "jdbc:mysql://" + host + "/" + db + "?user=" + user + "&password=" + pwd;
-            Connection conn = DriverManager.getConnection(urlValue);
-            
-            PreparedStatement pStatement = null;
-            String sql1 = "select id_user, user.nama, cabang.nama, status from user inner join cabang on user.id_cabang = cabang.id_cabang";
-            pStatement = conn.prepareStatement(sql1);
-            ResultSet rs = pStatement.executeQuery();
-            
-            while (rs.next()) {
-                model.addRow(new Object[]{
-                    rs.getInt("id_user"),
-                    rs.getString("user.nama"),
-                    rs.getString("status"),
-                    rs.getString("cabang.nama")
-                });
-            }
-            TabelData.setRowHeight(20);
-            pStatement.close();
-            conn.close();
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Koneksi Gagal, " + e.toString());
-        } catch (ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "JDBC Driver tidak ditemukan");
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -238,6 +208,11 @@ public class kelolaUserUtama extends javax.swing.JInternalFrame {
         TblHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_delete_white_18dp.png"))); // NOI18N
         TblHapus.setText("Hapus");
         TblHapus.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        TblHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TblHapusActionPerformed(evt);
+            }
+        });
         jPanel2.add(TblHapus);
 
         TblRefresh.setBackground(new java.awt.Color(0, 102, 153));
@@ -288,7 +263,7 @@ public class kelolaUserUtama extends javax.swing.JInternalFrame {
                                 .addGap(34, 34, 34)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(344, 344, 344)
+                        .addGap(356, 356, 356)
                         .addComponent(jLabel1)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
@@ -343,13 +318,14 @@ public class kelolaUserUtama extends javax.swing.JInternalFrame {
 
         int id = (int) tm.getValueAt(i, 0);
         classKelolaUser.set_idTabel(id);
+        classHapusUser.set_id(id);
     }//GEN-LAST:event_TabelDataMouseClicked
 
     private void TblRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TblRefreshActionPerformed
         // TODO add your handling code here:
         TxtCari.setText("");
         classKelolaUser.set_idTabel(0);
-        tampil_tabelAwal();
+        tampil_tabel("");
     }//GEN-LAST:event_TblRefreshActionPerformed
 
     private void TblTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TblTambahActionPerformed
@@ -377,6 +353,22 @@ public class kelolaUserUtama extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Harap pilih salah 1 kolom yang ingin dilihat datanya");
         }
     }//GEN-LAST:event_TblEditActionPerformed
+
+    private void TblHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TblHapusActionPerformed
+        // TODO add your handling code here:
+        boolean buka = classKelolaUser.get_tampilPilihan();
+        if(!buka && classKelolaUser.get_idTabel()!= 0){
+            int input = JOptionPane.showConfirmDialog(null, "Apakah anda yakin ingin menghapus user dengan id " + Integer.valueOf(classHapusUser.get_id()) + "?", "Peringatan", JOptionPane.YES_NO_OPTION);
+            if(input == 0){
+                boolean hapus = classHapusUser.hapus_user();
+                if(hapus){
+                    tampil_tabel(classKelolaUser.get_cari());
+                }else{
+                    JOptionPane.showMessageDialog(this, "Gagal menghapus data ini");
+                }
+            }
+        }
+    }//GEN-LAST:event_TblHapusActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
