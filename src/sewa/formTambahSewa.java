@@ -511,10 +511,6 @@ public class formTambahSewa extends javax.swing.JDialog {
             
             JOptionPane.showMessageDialog(null, "Data sewa berhasil ditambahkan.");
         }
-        
-        if (cbPenyewa.getSelectedItem() != "Belum pilih" && dpSampai.getDate() != null) {
-            
-        }
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

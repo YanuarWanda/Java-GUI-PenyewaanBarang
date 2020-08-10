@@ -8,7 +8,7 @@ import barang.barangController;
 import penyewa.penyewaController;
 import user.userController;
 import cabang.cabangController;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 
 public class sewa {

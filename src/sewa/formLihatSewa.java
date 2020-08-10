@@ -37,7 +37,7 @@ public class formLihatSewa extends javax.swing.JDialog {
         txtTanggalPeminjaman.setText(String.valueOf(s.getTanggalPeminjaman()) + " - " + String.valueOf(s.getPeminjamanSampai()));
         if (s.getTanggalPengembalian() != null) {
             txtTanggalPengembalian.setText(String.valueOf(s.getTanggalPengembalian()));
-            txtDendaTelat.setText("Denda telat (" + String.valueOf(bantuan.bandingkanHari(s.getTanggalPeminjaman(), s.getTanggalPengembalian())) + " hari x " + dsList.size() + " barang)");
+            txtDendaTelat.setText("Denda telat (" + String.valueOf(bantuan.bandingkanHari(s.getPeminjamanSampai(), s.getTanggalPengembalian())) + " hari x " + dsList.size() + " barang)");
         } else {
             txtDendaTelat.setText("Denda telat");
             

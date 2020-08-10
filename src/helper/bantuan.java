@@ -30,8 +30,19 @@ public class bantuan {
     }
     
     public static long bandingkanHari(Date dari, Date sampai) {
-        long d = dari.getTime() / (24 * 60 * 60 * 1000);
-        long s = sampai.getTime() / (24 * 60 * 60 * 1000);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date1 = dari;
+        Date date2 = sampai;
+        
+        try {
+            date1 = sdf.parse(new SimpleDateFormat("yyyy-MM-dd").format(dari));
+            date2 = sdf.parse(new SimpleDateFormat("yyyy-MM-dd").format(sampai));
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+        
+        long d = date1.getTime() / (24 * 60 * 60 * 1000);
+        long s = date2.getTime() / (24 * 60 * 60 * 1000);
         return s - d;
     }
     

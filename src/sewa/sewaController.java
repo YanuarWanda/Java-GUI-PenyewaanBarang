@@ -217,4 +217,28 @@ public class sewaController {
             return ds;
         }
     }
+    public void pengembalian(sewa s, ArrayList<detailSewa> dsList) {
+        Connection conn = koneksi.getConnection();
+        
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "UPDATE sewa SET "
+                    + "tanggal_pengembalian = '" + s.getTanggalPengembalian() + "',"
+                    + "denda = " + s.getDenda() + ", total = " + s.getTotal() 
+                    + " WHERE id_sewa = " + s.getId() + ";";
+            stmt.executeUpdate(sql);
+            
+            for (detailSewa ds: dsList) {
+                sql = "UPDATE detail_sewa SET denda = " + ds.getDenda() + ", "
+                        + "keterangan_denda = '" + ds.getKeteranganDenda() + "'"
+                        + " WHERE id_sewa = " + s.getId() + " AND id_barang = "
+                        + ds.getIdBarang() + ";";
+                stmt.executeUpdate(sql);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        } finally {
+            koneksi.closeConnection(conn);
+        }
+    }
 }

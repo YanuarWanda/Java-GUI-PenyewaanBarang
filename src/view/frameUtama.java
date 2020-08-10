@@ -17,7 +17,7 @@ public class frameUtama extends javax.swing.JFrame {
         this.status = status;
         this.setExtendedState(MAXIMIZED_BOTH);
         
-        if (status != "admin") {
+        if (!status.equals("admin")) {
             menuKelolaUser.setEnabled(false);
         }
     }
