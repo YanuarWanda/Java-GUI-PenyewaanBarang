@@ -68,10 +68,6 @@ CREATE TABLE detail_sewa (
     FOREIGN KEY (id_barang) REFERENCES barang(id_barang)
 );
 
-INSERT INTO cabang VALUES 
-(1, "Cabang 1", "Jl. Cabang 1.", "087825418390"),
-(2, "Cabang 2", "Jl. Cabang 2.", "087825418391");
-
 insert  into `penyewa`(`no_ktp`,`nama`,`alamat`,`kontak`) values 
 ('001XXX','Ade Irma','Jl. Sukajadi','087XXXXXXXXX'),
 ('010XXX','Fiki Fauzi','Jl. Sukajadi','089XXXXXXXXX'),
