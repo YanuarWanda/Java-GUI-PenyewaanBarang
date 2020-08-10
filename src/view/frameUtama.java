@@ -6,6 +6,9 @@ import kelola_user.classKelolaUser;
 import kelola_user.kelolaUserUtama;
 
 public class frameUtama extends javax.swing.JFrame {
+    private boolean tampilSewa = false;
+    private boolean tampilPenyewa = false;
+    
     public frameUtama(int id_user, int id_cabang, String status) {
         initComponents();
         info_pengguna.set_cabang(id_cabang);
@@ -40,6 +43,7 @@ public class frameUtama extends javax.swing.JFrame {
         menuKelolaSewa = new javax.swing.JMenuItem();
         menuKelolaUser = new javax.swing.JMenuItem();
         menuLaporan = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Penyewaan Barang");
@@ -122,6 +126,10 @@ public class frameUtama extends javax.swing.JFrame {
         menuBar.add(menuData);
 
         menuLaporan.setText("Laporan");
+
+        jMenuItem1.setText("Laporan Pendapatan");
+        menuLaporan.add(jMenuItem1);
+
         menuBar.add(menuLaporan);
 
         setJMenuBar(menuBar);
@@ -145,8 +153,11 @@ public class frameUtama extends javax.swing.JFrame {
     }//GEN-LAST:event_menuKeluarActionPerformed
 
     private void menuKelolaSewaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKelolaSewaActionPerformed
-        indexSewa fIndexSewa = new indexSewa(info_pengguna.get_pengguna(), info_pengguna.get_cabang());
-        bantuan.tampil(panelUtama, fIndexSewa, this.getSize());
+        if (!tampilSewa) {
+            indexSewa fIndexSewa = new indexSewa(info_pengguna.get_pengguna(), info_pengguna.get_cabang());
+            bantuan.tampil(panelUtama, fIndexSewa, this.getSize());
+            tampilSewa = true;
+        }
     }//GEN-LAST:event_menuKelolaSewaActionPerformed
 
     private void menuKelolaUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKelolaUserActionPerformed
@@ -159,11 +170,15 @@ public class frameUtama extends javax.swing.JFrame {
     }//GEN-LAST:event_menuKelolaUserActionPerformed
 
     private void menuKelolaPenyewaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKelolaPenyewaActionPerformed
-        penyewa fPenyewa = new penyewa();
-        bantuan.tampil(panelUtama, fPenyewa, this.getSize());
+        if (!tampilPenyewa) {
+            penyewa fPenyewa = new penyewa();
+            bantuan.tampil(panelUtama, fPenyewa, this.getSize());
+            tampilPenyewa = true;
+        }
     }//GEN-LAST:event_menuKelolaPenyewaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu menu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuData;
