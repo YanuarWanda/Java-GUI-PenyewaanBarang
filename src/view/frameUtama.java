@@ -163,7 +163,7 @@ public class frameUtama extends javax.swing.JFrame {
 
     private void menuKelolaPenyewaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKelolaPenyewaActionPerformed
         penyewa fPenyewa = new penyewa();
-        fPenyewa.setVisible(true);
+        bantuan.tampil(panelUtama, fPenyewa, this.getSize());
     }//GEN-LAST:event_menuKelolaPenyewaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
