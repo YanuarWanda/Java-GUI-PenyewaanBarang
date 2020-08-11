@@ -239,6 +239,7 @@ public class sewaController {
                         + " WHERE id_sewa = " + s.getId() + " AND id_barang = "
                         + ds.getIdBarang() + ";";
                 stmt.executeUpdate(sql);
+                bc.updateStok(ds.getIdBarang(), ds.getBarang().getStok() + ds.getJumlah());
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());

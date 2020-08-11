@@ -168,9 +168,12 @@ public class formUbahSewa extends javax.swing.JDialog {
         if (cbBarang.getSelectedItem() == "Belum pilih") return;
         
         barang b = (barang) cbBarang.getSelectedItem();
-
+        
         int jumlahBarang = (int) spinner.getValue();
-        int jumlahBarangLama = b.getDetailSewaBySewa(s.getId()).getJumlah();
+        int jumlahBarangLama = 0;
+        if (b.getDetailSewaBySewa(s.getId()) != null) {
+            jumlahBarangLama = b.getDetailSewaBySewa(s.getId()).getJumlah();
+        }
         int stok = b.getStok();
 
         if (jumlahBarang > 0) {
