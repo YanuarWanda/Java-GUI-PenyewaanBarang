@@ -78,11 +78,11 @@ public class sewa {
         this.noKTPPenyewa = noKTPPenyewa;
     }
 
-    public void setPegawai(int idPegawai) {
+    public void setIdPegawai(int idPegawai) {
         this.idPegawai = idPegawai;
     }
 
-    public void setCabang(int idCabang) {
+    public void setIdCabang(int idCabang) {
         this.idCabang = idCabang;
     }
 

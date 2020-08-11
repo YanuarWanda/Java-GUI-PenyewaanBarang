@@ -51,6 +51,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Kelola Barang"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuKelolaBarangActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuKelolaCabang">
               <Properties>

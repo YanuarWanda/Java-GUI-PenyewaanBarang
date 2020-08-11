@@ -3,8 +3,7 @@ package view;
 import helper.bantuan;
 import sewa.indexSewa;
 import Login.loginPengguna;
-import javax.swing.event.InternalFrameEvent;
-import javax.swing.event.InternalFrameListener;
+import barang.formTable;
 import kelola_user.classKelolaUser;
 import kelola_user.kelolaUserUtama;
 import laporan.laporanPendapatan;
@@ -90,6 +89,11 @@ public class frameUtama extends javax.swing.JFrame {
         menuKelolaBarang.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuKelolaBarang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_work_black_18dp.png"))); // NOI18N
         menuKelolaBarang.setText("Kelola Barang");
+        menuKelolaBarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuKelolaBarangActionPerformed(evt);
+            }
+        });
         menuData.add(menuKelolaBarang);
 
         menuKelolaCabang.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -199,6 +203,11 @@ public class frameUtama extends javax.swing.JFrame {
             tampilLaporanPendapatan = true;
         }
     }//GEN-LAST:event_menuLaporanPendapatanActionPerformed
+
+    private void menuKelolaBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKelolaBarangActionPerformed
+        formTable fBarang = new formTable();
+        bantuan.tampil(panelUtama, fBarang, this.getSize());
+    }//GEN-LAST:event_menuKelolaBarangActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu menu;
