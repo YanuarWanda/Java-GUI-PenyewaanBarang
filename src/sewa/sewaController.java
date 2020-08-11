@@ -3,6 +3,7 @@ package sewa;
 import barang.barangController;
 import helper.koneksi;
 import java.io.File;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -255,8 +256,7 @@ public class sewaController {
         params.put("idSewa", s.getId());
         
         // Ambil file
-        File file = new File("src/laporan/cetakSewa.jasper");
-        JasperReport jp = (JasperReport) JRLoader.loadObject(file);
+        InputStream jp = getClass().getResourceAsStream("/laporan/cetakSewa.jasper");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jp, params, conn);
         JasperViewer.viewReport(jasperPrint, false);
         JasperViewer.setDefaultLookAndFeelDecorated(true);
@@ -269,8 +269,7 @@ public class sewaController {
         params.put("tahun", tahun);
         
         // Ambil file
-        File file = new File("src/laporan/laporanPendapatan.jasper");
-        JasperReport jp = (JasperReport) JRLoader.loadObject(file);
+        InputStream jp = getClass().getResourceAsStream("/laporan/laporanPendapatan.jasper");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jp, params, conn);
         JasperViewer.viewReport(jasperPrint, false);
         JasperViewer.setDefaultLookAndFeelDecorated(true);

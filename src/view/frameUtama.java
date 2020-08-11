@@ -4,6 +4,7 @@ import helper.bantuan;
 import sewa.indexSewa;
 import Login.loginPengguna;
 import barang.formTable;
+import cabang.KelolaCabang;
 import kelola_user.classKelolaUser;
 import kelola_user.kelolaUserUtama;
 import laporan.laporanPendapatan;
@@ -93,6 +94,11 @@ public class frameUtama extends javax.swing.JFrame {
         menuKelolaCabang.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuKelolaCabang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_flag_black_18dp.png"))); // NOI18N
         menuKelolaCabang.setText("Kelola Cabang");
+        menuKelolaCabang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuKelolaCabangActionPerformed(evt);
+            }
+        });
         menuData.add(menuKelolaCabang);
 
         menuKelolaPenyewa.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -170,7 +176,8 @@ public class frameUtama extends javax.swing.JFrame {
 
     private void menuKelolaSewaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKelolaSewaActionPerformed
         if (!tampilSewa) {
-            indexSewa fIndexSewa = new indexSewa(this, info_pengguna.get_pengguna(), info_pengguna.get_cabang());
+            indexSewa fIndexSewa = new indexSewa(this, info_pengguna.get_pengguna(), 
+                    info_pengguna.get_cabang());
             bantuan.tampil(panelUtama, fIndexSewa, this.getSize());
             tampilSewa = true;
         }
@@ -202,6 +209,11 @@ public class frameUtama extends javax.swing.JFrame {
         formTable fBarang = new formTable();
         bantuan.tampil(panelUtama, fBarang, this.getSize());
     }//GEN-LAST:event_menuKelolaBarangActionPerformed
+
+    private void menuKelolaCabangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKelolaCabangActionPerformed
+        KelolaCabang fCabang = new KelolaCabang();
+        bantuan.tampil(panelUtama, fCabang, this.getSize());
+    }//GEN-LAST:event_menuKelolaCabangActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu menu;

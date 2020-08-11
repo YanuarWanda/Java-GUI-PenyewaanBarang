@@ -48,10 +48,10 @@ public class formTable extends javax.swing.JInternalFrame {
         txtCari = new javax.swing.JTextField();
 
         setClosable(true);
-        setTitle("Pengolahan Data Sewa");
+        setTitle("Pengolahan Data Barang");
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("PENGOLAHAN DATA SEWA");
+        jLabel1.setText("PENGOLAHAN DATA BARANG");
 
         tBarang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
