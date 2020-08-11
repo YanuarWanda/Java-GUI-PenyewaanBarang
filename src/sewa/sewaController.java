@@ -261,4 +261,18 @@ public class sewaController {
         JasperViewer.viewReport(jasperPrint, false);
         JasperViewer.setDefaultLookAndFeelDecorated(true);
     }
+    public void cetakLaporanPendapatan(String tahun) throws JRException {
+        Connection conn = koneksi.getConnection();
+        
+        // Cetak data
+        HashMap params = new HashMap();
+        params.put("tahun", tahun);
+        
+        // Ambil file
+        File file = new File("src/laporan/laporanPendapatan.jasper");
+        JasperReport jp = (JasperReport) JRLoader.loadObject(file);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jp, params, conn);
+        JasperViewer.viewReport(jasperPrint, false);
+        JasperViewer.setDefaultLookAndFeelDecorated(true);
+    }
 }

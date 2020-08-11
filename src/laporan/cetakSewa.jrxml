@@ -2,7 +2,8 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cetakSewa" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c3893a1a-8fac-4bc7-ae23-c775b2f6ce7f">
 	<property name="ireport.zoom" value="1.0000000000000036"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<import value="com.yanuarwanda.reportutil.Helper"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -174,7 +175,7 @@
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{tanggal_peminjaman}.toString() + " - " + $F{peminjaman_sampai}.toString()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[Helper.formatTanggal($F{tanggal_peminjaman}) + " - " + Helper.formatTanggal($F{peminjaman_sampai})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="216" width="162" height="20" uuid="49fcfec7-0354-4d40-89cb-0295c605365b"/>
@@ -195,7 +196,7 @@
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{tanggal_pengembalian}.toString()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[Helper.formatTanggal($F{tanggal_pengembalian})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="108" width="162" height="20" uuid="a16317a1-89a2-4732-87a0-9cf96ed3bfa8"/>
@@ -283,10 +284,10 @@
 			</textField>
 			<textField>
 				<reportElement x="277" y="396" width="278" height="20" uuid="96cd66ca-ad31-4758-8d27-2e70246f5e13"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{denda}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[Helper.formatRupiah($F{denda})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="396" width="266" height="20" uuid="8025cb47-dc19-4fc1-a573-6ee0f91cfc0c"/>
@@ -328,17 +329,17 @@
 						</textField>
 						<textField>
 							<reportElement x="277" y="20" width="278" height="20" uuid="b328dfee-c121-4e75-ac25-2569a0c0b8e1"/>
-							<textElement>
+							<textElement textAlignment="Right">
 								<font size="14"/>
 							</textElement>
-							<textFieldExpression><![CDATA[$F{denda}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[Helper.formatRupiah($F{denda})]]></textFieldExpression>
 						</textField>
 						<textField>
 							<reportElement x="277" y="0" width="278" height="20" uuid="181f1665-52f3-4676-b07b-d9957bcdacf9"/>
-							<textElement>
+							<textElement textAlignment="Right">
 								<font size="14"/>
 							</textElement>
-							<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[Helper.formatRupiah($F{total})]]></textFieldExpression>
 						</textField>
 					</jr:listContents>
 				</jr:list>
@@ -448,10 +449,10 @@
 			</staticText>
 			<textField>
 				<reportElement x="277" y="416" width="278" height="20" uuid="c09e0a6b-1a97-463b-a7ad-2cbee45c1896"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[Helper.formatRupiah($F{total})]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -459,7 +460,7 @@
 		<band height="21" splitType="Stretch">
 			<textField pattern="yyyy/MM/dd">
 				<reportElement x="455" y="0" width="100" height="20" uuid="c9f01628-9788-4762-88d6-4d94a53e977c"/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[Helper.formatTanggal(new java.util.Date())]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="355" y="0" width="100" height="20" uuid="b0491abf-8e82-44a6-986e-65e2d119f9b2"/>
