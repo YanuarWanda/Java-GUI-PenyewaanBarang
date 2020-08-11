@@ -3,9 +3,11 @@ package sewa;
 import barang.barang;
 import barang.barangController;
 import javax.swing.JOptionPane;
+import view.frameUtama;
 import view.info_pengguna;
 
 public class indexSewa extends javax.swing.JInternalFrame {
+    frameUtama fUtama = null;
     int id_user = 0;
     int id_cabang = 0;
     
@@ -13,8 +15,9 @@ public class indexSewa extends javax.swing.JInternalFrame {
     barangController bc = new barangController();
     sewaTabelModel tabelModel = new sewaTabelModel();
     
-    public indexSewa(int id_user, int id_cabang) {
+    public indexSewa(frameUtama fUtama, int id_user, int id_cabang) {
         initComponents();
+        this.fUtama = fUtama;
         this.id_user = id_user;
         this.id_cabang = id_cabang;
         tampilSewa();
@@ -58,6 +61,23 @@ public class indexSewa extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Pengolahan Data Sewa");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         tSewa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -277,6 +297,10 @@ public class indexSewa extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Pilih data terlebih dahulu");
         }
     }//GEN-LAST:event_btnPengembalianActionPerformed
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        this.fUtama.tampilSewa = false;
+    }//GEN-LAST:event_formInternalFrameClosed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCari;

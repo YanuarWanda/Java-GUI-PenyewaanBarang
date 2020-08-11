@@ -3,14 +3,15 @@ package view;
 import helper.bantuan;
 import sewa.indexSewa;
 import Login.loginPengguna;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
 import kelola_user.classKelolaUser;
 import kelola_user.kelolaUserUtama;
 import laporan.laporanPendapatan;
 
 public class frameUtama extends javax.swing.JFrame {
-    private boolean tampilSewa = false;
-    private boolean tampilPenyewa = false;
-    private boolean tampilLaporanPendapatan = false;
+    public boolean tampilSewa = false;
+    public boolean tampilLaporanPendapatan = false;
     
     public frameUtama(int id_user, int id_cabang, String status) {
         initComponents();
@@ -46,7 +47,7 @@ public class frameUtama extends javax.swing.JFrame {
         menuKelolaSewa = new javax.swing.JMenuItem();
         menuKelolaUser = new javax.swing.JMenuItem();
         menuLaporan = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        menuLaporanPendapatan = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Penyewaan Barang");
@@ -130,15 +131,15 @@ public class frameUtama extends javax.swing.JFrame {
 
         menuLaporan.setText("Laporan");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_receipt_long_black_18dp.png"))); // NOI18N
-        jMenuItem1.setText("Laporan Pendapatan");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        menuLaporanPendapatan.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuLaporanPendapatan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_receipt_long_black_18dp.png"))); // NOI18N
+        menuLaporanPendapatan.setText("Laporan Pendapatan");
+        menuLaporanPendapatan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                menuLaporanPendapatanActionPerformed(evt);
             }
         });
-        menuLaporan.add(jMenuItem1);
+        menuLaporan.add(menuLaporanPendapatan);
 
         menuBar.add(menuLaporan);
 
@@ -171,7 +172,7 @@ public class frameUtama extends javax.swing.JFrame {
 
     private void menuKelolaSewaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKelolaSewaActionPerformed
         if (!tampilSewa) {
-            indexSewa fIndexSewa = new indexSewa(info_pengguna.get_pengguna(), info_pengguna.get_cabang());
+            indexSewa fIndexSewa = new indexSewa(this, info_pengguna.get_pengguna(), info_pengguna.get_cabang());
             bantuan.tampil(panelUtama, fIndexSewa, this.getSize());
             tampilSewa = true;
         }
@@ -187,23 +188,19 @@ public class frameUtama extends javax.swing.JFrame {
     }//GEN-LAST:event_menuKelolaUserActionPerformed
 
     private void menuKelolaPenyewaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKelolaPenyewaActionPerformed
-        if (!tampilPenyewa) {
-            penyewa fPenyewa = new penyewa();
-            bantuan.tampil(panelUtama, fPenyewa, this.getSize());
-            tampilPenyewa = true;
-        }
+        penyewa fPenyewa = new penyewa();
+        bantuan.tampil(panelUtama, fPenyewa, this.getSize());
     }//GEN-LAST:event_menuKelolaPenyewaActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void menuLaporanPendapatanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLaporanPendapatanActionPerformed
         if (!tampilLaporanPendapatan) {
-            laporanPendapatan fLaporan = new laporanPendapatan();
+            laporanPendapatan fLaporan = new laporanPendapatan(this);
             bantuan.tampil(panelUtama, fLaporan, this.getSize());
             tampilLaporanPendapatan = true;
         }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_menuLaporanPendapatanActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu menu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuData;
@@ -214,6 +211,7 @@ public class frameUtama extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuKelolaUser;
     private javax.swing.JMenuItem menuKeluar;
     private javax.swing.JMenu menuLaporan;
+    private javax.swing.JMenuItem menuLaporanPendapatan;
     private javax.swing.JMenuItem menuTentang;
     private javax.swing.JDesktopPane panelUtama;
     // End of variables declaration//GEN-END:variables
