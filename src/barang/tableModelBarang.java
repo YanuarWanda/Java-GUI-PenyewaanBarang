@@ -41,7 +41,7 @@ public class tableModelBarang extends AbstractTableModel{
             case 3 : return b.getMerk();
             case 4 : return b.getTahun();
             case 5 : return b.getJenis();
-            case 6 : return b.getJenis();
+            case 6 : return b.getStok();
             case 7 : return b.getHargaSewa();
             default : return null;
         }

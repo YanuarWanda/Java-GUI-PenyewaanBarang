@@ -1,6 +1,7 @@
 package barang;
 
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 
 public class formTable extends javax.swing.JInternalFrame {
@@ -8,17 +9,17 @@ public class formTable extends javax.swing.JInternalFrame {
     /**
      * Creates new form indexSewa
      */
+    database db = new database();
+    tableModelBarang tabelbarang = new tableModelBarang();
     public void tampilData(){
-        database db = new database();
-        tableModelBarang tabelbarang = new tableModelBarang();
+        
         tabelbarang.setData(db.tampilSemuaBarang());
         tBarang.setModel(tabelbarang);
     }
     
     public void refreshdata(){
-        database db = new database();
-        tableModelBarang tabelbarang = new tableModelBarang();
         tabelbarang.setData(db.tampilSemuaBarang());
+        tabelbarang.fireTableDataChanged();
         tBarang.changeSelection(0, 0, false, false);
     }
     
@@ -91,11 +92,21 @@ public class formTable extends javax.swing.JInternalFrame {
         btnUbah.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnUbah.setMaximumSize(new java.awt.Dimension(100, 0));
         btnUbah.setMinimumSize(new java.awt.Dimension(75, 23));
+        btnUbah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUbahActionPerformed(evt);
+            }
+        });
 
         btnHapus.setText("Hapus");
         btnHapus.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnHapus.setMaximumSize(new java.awt.Dimension(100, 0));
         btnHapus.setMinimumSize(new java.awt.Dimension(75, 23));
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
 
         btnRefresh.setText("Refresh");
         btnRefresh.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -111,6 +122,11 @@ public class formTable extends javax.swing.JInternalFrame {
         btnCari.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnCari.setMaximumSize(new java.awt.Dimension(100, 0));
         btnCari.setMinimumSize(new java.awt.Dimension(75, 23));
+        btnCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCariActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,6 +195,54 @@ public class formTable extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         refreshdata();
     }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        // TODO add your handling code here:
+        try{
+            int baris = tBarang.getSelectedRow();
+            //sc.hapusSewa((int) tSewa.getValueAt(tSewa.getSelectedRow(), 0))
+            int id = (int)tabelbarang.getValueAt(baris, 0);
+            String nama = (String)tabelbarang.getValueAt(baris, 2);
+            Object[] pilihan ={"Ya","Tidak"};
+            int jawaban = JOptionPane.showOptionDialog(null, "Anda Yakin data "
+            + "barang dengan id"+id+" dengan nama "+nama+" akan "
+                    + "dihapus ? ","Peringatan ",JOptionPane.DEFAULT_OPTION,
+            JOptionPane.WARNING_MESSAGE,null,pilihan,pilihan[0]);
+            if(jawaban ==0){
+                db.hapusBarang(id);
+                refreshdata();
+            }
+        }
+        catch(ArrayIndexOutOfBoundsException e){
+           JOptionPane.showMessageDialog(null, "Pilih data yang ingin dihapus !!");
+        }
+    }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUbahActionPerformed
+        // TODO add your handling code here:
+        formUpdateBarang formupdate = new formUpdateBarang(null,true);
+        
+        
+        //pilihan kursor
+        int baris = tBarang.getSelectedRow();
+        int id = (int)tabelbarang.getValueAt(baris, 0);
+        barang b = db.pillihBarang(id);
+        if(b!=null){
+            formupdate.setForm(b);
+            formupdate.setVisible(true);
+            refreshdata();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Barang dengan id_barang "+id+"tidak ditemukan");
+        }
+    }//GEN-LAST:event_btnUbahActionPerformed
+
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+        // TODO add your handling code here:
+        tabelbarang.setData(db.cariBarang(txtCari.getText()));
+        tabelbarang.fireTableDataChanged();
+        tBarang.changeSelection(0, 0, false, false);
+    }//GEN-LAST:event_btnCariActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

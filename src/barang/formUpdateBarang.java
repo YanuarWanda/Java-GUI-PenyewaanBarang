@@ -5,16 +5,32 @@
  */
 package barang;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author user
  */
-public class formTambahBarang extends javax.swing.JDialog {
+public class formUpdateBarang extends javax.swing.JDialog {
 
+    public void setForm(barang b){
+        txtid.setText(String.valueOf(b.getId()));
+        txtidcabang.setText(String.valueOf(b.getIdCabang()));
+        txtnmbarang.setText(b.getNama());
+        txtmerk.setText(b.getMerk());
+        txttahun.setText(String.valueOf(b.getTahun()));
+        txtjenis.setText(b.getJenis());
+        txtstok.setText(String.valueOf(b.getStok()));
+        txthgsewa.setText(String.valueOf(b.getHargaSewa()));
+    }
     /**
      * Creates new form formTambahBarang
      */
-    public formTambahBarang(java.awt.Frame parent, boolean modal) {
+    public formUpdateBarang(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -86,41 +102,40 @@ public class formTambahBarang extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(100, 100, 100)
+                .addComponent(bsimpan)
+                .addGap(40, 40, 40)
+                .addComponent(bbatal)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtmerk)
-                                    .addComponent(txttahun)
-                                    .addComponent(txtjenis)
-                                    .addComponent(txtstok)
-                                    .addComponent(txthgsewa)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel8))
-                                .addGap(25, 25, 25)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtnmbarang, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtid, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                                        .addComponent(txtidcabang, javax.swing.GroupLayout.Alignment.LEADING))))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtmerk)
+                            .addComponent(txttahun)
+                            .addComponent(txtjenis)
+                            .addComponent(txtstok)
+                            .addComponent(txthgsewa)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(bsimpan)
-                        .addGap(40, 40, 40)
-                        .addComponent(bbatal)))
-                .addContainerGap(134, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel8))
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtnmbarang, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtid, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                .addComponent(txtidcabang, javax.swing.GroupLayout.Alignment.LEADING)))))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,7 +184,7 @@ public class formTambahBarang extends javax.swing.JDialog {
     private void bsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsimpanActionPerformed
         // TODO add your handling code here:
         database db = new database();
-        db.tambahBarang(new barang(Integer.valueOf(txtid.getText()),Integer.valueOf(txtidcabang.getText()),txtnmbarang.getText(),txtmerk.getText(),Integer.valueOf(txttahun.getText()),
+        db.updateBarang(new barang(Integer.valueOf(txtid.getText()),Integer.valueOf(txtidcabang.getText()),txtnmbarang.getText(),txtmerk.getText(),Integer.valueOf(txttahun.getText()),
                 txtjenis.getText(),Integer.valueOf(txtstok.getText()),Float.valueOf(txthgsewa.getText())));
         setVisible(false);
     }//GEN-LAST:event_bsimpanActionPerformed
@@ -196,7 +211,7 @@ public class formTambahBarang extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     public javax.swing.JTextField txthgsewa;
-    private javax.swing.JTextField txtid;
+    public javax.swing.JTextField txtid;
     public javax.swing.JTextField txtidcabang;
     public javax.swing.JTextField txtjenis;
     public javax.swing.JTextField txtmerk;
