@@ -37,7 +37,6 @@ public class frameUtama extends javax.swing.JFrame {
         panelUtama = new javax.swing.JDesktopPane();
         menuBar = new javax.swing.JMenuBar();
         menu = new javax.swing.JMenu();
-        menuTentang = new javax.swing.JMenuItem();
         menuKeluar = new javax.swing.JMenuItem();
         menuData = new javax.swing.JMenu();
         menuKelolaBarang = new javax.swing.JMenuItem();
@@ -66,11 +65,6 @@ public class frameUtama extends javax.swing.JFrame {
         );
 
         menu.setText("Menu");
-
-        menuTentang.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        menuTentang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_info_black_18dp.png"))); // NOI18N
-        menuTentang.setText("Tentang Aplikasi");
-        menu.add(menuTentang);
 
         menuKeluar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/baseline_power_settings_new_black_18dp.png"))); // NOI18N
@@ -221,7 +215,6 @@ public class frameUtama extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuKeluar;
     private javax.swing.JMenu menuLaporan;
     private javax.swing.JMenuItem menuLaporanPendapatan;
-    private javax.swing.JMenuItem menuTentang;
     private javax.swing.JDesktopPane panelUtama;
     // End of variables declaration//GEN-END:variables
 }
