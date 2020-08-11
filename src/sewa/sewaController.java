@@ -159,7 +159,11 @@ public class sewaController {
         
         try {
             Statement stmt = conn.createStatement();
-            String sql = "UPDATE sewa SET no_ktp = '" + sewa.getNoKTPPenyewa() + "', tanggal_peminjaman = '" + sewa.getTanggalPeminjaman() + "', peminjaman_sampai = '" + sewa.getPeminjamanSampai() + "', total = " + sewa.getTotal() + ";";
+            String sql = "UPDATE sewa SET no_ktp = '" 
+                    + sewa.getNoKTPPenyewa() + "', tanggal_peminjaman = '" 
+                    + sewa.getTanggalPeminjaman() + "', peminjaman_sampai = '" 
+                    + sewa.getPeminjamanSampai() + "', total = " 
+                    + sewa.getTotal() + " WHERE id_sewa = " + sewa.getId() + ";";
             stmt.executeUpdate(sql);
             
             // Hapus detail sewa
