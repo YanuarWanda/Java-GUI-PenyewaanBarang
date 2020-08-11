@@ -16,9 +16,6 @@ public class cabangController {
     private String alamat;
     private String kontak;
     private int id;
-    Connection con = null;
-    ResultSet rs = null;
-    PreparedStatement pst = null;
     
     public cabang getCabang(int cabang) {
         cabang c = null;
@@ -133,15 +130,28 @@ public class cabangController {
     }
     
     
-    public void update()throws SQLException{
-       con = koneksi.getConnection();
-       String sql="update cabang set nama=?, alamat=?, kontak=? where id_cabang=?";
-       pst= con.prepareStatement(sql);
-       pst.setString(1, nama);
-       pst.setString(2, alamat);
-       pst.setString(3, kontak);
-       pst.setInt(4, id);
-       pst.executeUpdate();
-       pst.close();
+    public void update(int id, String nama, String alamat, String kontak) {
+        Connection conn = koneksi.getConnection();
+        
+        try {
+            Statement st = conn.createStatement();
+            PreparedStatement pStatement = null;
+            String sql = "UPDATE `cabang` SET `nama` = ?, `alamat` = ?, `kontak` = ? WHERE `id_cabang` = ?";
+            pStatement = conn.prepareStatement(sql);
+            pStatement.setString(1, nama);
+            pStatement.setString(2, alamat);
+            pStatement.setString(3, kontak);
+            pStatement.setInt(4, id);
+            if (pStatement.executeUpdate() > 0) {
+                JOptionPane.showMessageDialog(null, "Berhasil menyimpan perubahan");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Gagal menyimpan perubahan");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        } finally {
+            koneksi.closeConnection(conn);
+        }
     }
 }

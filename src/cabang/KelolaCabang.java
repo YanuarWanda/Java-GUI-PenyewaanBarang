@@ -1,10 +1,5 @@
 package cabang;
 
-import helper.koneksi;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 public class KelolaCabang extends javax.swing.JInternalFrame {
@@ -309,20 +304,11 @@ public class KelolaCabang extends javax.swing.JInternalFrame {
         txt_kontak.setEnabled(true);
         btn_tambah1.setEnabled(true);
         btn_reset1.setEnabled(true);
-        if(!nama.equals("") && !alamat.equals("") && !kontak.equals("")){
-        try {
-            nama = txt_nama.getText();
-            alamat = txt_alamat.getText();
-            kontak = txt_kontak.getText();
-            cbg.tambah(nama,alamat,kontak);
-        }
-        catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e);
-        }
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Isi data terlebih dahulu");
-        }
+        btn_simpan.setEnabled(false);
+        txt_id.setText("");
+        txt_nama.setText("");
+        txt_alamat.setText("");
+        txt_kontak.setText("");
     }//GEN-LAST:event_btn_tambahActionPerformed
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
@@ -352,6 +338,7 @@ public class KelolaCabang extends javax.swing.JInternalFrame {
 
     private void btn_ubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ubahActionPerformed
         //txt_id.setEnabled(true);
+        btn_tambah1.setEnabled(false);
         txt_nama.setEnabled(true);
         txt_alamat.setEnabled(true);
         txt_kontak.setEnabled(true);
@@ -373,11 +360,6 @@ public class KelolaCabang extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_resetActionPerformed
 
     private void btn_tambah1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambah1ActionPerformed
-        txt_id.setText("");
-        txt_nama.setText("");
-        txt_alamat.setText("");
-        txt_kontak.setText("");
-        btn_simpan.setEnabled(false);
         try {
             nama = txt_nama.getText();
             alamat = txt_alamat.getText();
@@ -403,7 +385,7 @@ public class KelolaCabang extends javax.swing.JInternalFrame {
             nama = txt_nama.getText();
             alamat = txt_alamat.getText();
             kontak = txt_kontak.getText();
-            cbg.update();
+            cbg.update(id,nama,alamat,kontak);
         }
         catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
